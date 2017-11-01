@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KotlinCard</string>
+    <string name="card_front">Card Front</string>
+    <string name="card_back">Card Back</string>
+</resources>
