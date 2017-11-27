@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity
  */
 abstract class  SingleFragmentActivity: AppCompatActivity() {
 
-    abstract protected fun creatFragment():android.support.v4.app.Fragment
+    abstract protected fun createFragment():android.support.v4.app.Fragment
 
      override  protected fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ abstract class  SingleFragmentActivity: AppCompatActivity() {
          var fragment = fm.findFragmentById(R.id.fragment_container)
 
          if (fragment == null) {
-             fragment = creatFragment()
+             fragment = createFragment()
              supportFragmentManager
                      .beginTransaction()
                      .add(R.id.fragment_container,fragment)

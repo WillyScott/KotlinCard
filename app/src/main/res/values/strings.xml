@@ -1,5 +1,8 @@
 <resources>
+    <string name="new_card">New Card</string>
     <string name="app_name">KotlinCard</string>
     <string name="card_front">Card Front</string>
     <string name="card_back">Card Back</string>
+    <string name="set_name">Set Name</string>
+    <string name="set_description">Set Description</string>
 </resources>
