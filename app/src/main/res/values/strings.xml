@@ -5,4 +5,5 @@
     <string name="card_back">Card Back</string>
     <string name="set_name">Set Name</string>
     <string name="set_description">Set Description</string>
+    <string name="new_set">New Set</string>
 </resources>

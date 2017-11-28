@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import com.example.dad.kotlincard.card.Card
 import db.FlashCard
 import db.MyApp
 import io.reactivex.Single
@@ -67,6 +68,8 @@ class FlashCardFragment :Fragment() {
         //Do I need this or not  recyclerview stays on last item.
         //retainInstance = true
 
+
+        //TODO update to  3 lines below see SetCardFragment  wsg
         cardRecyclerView = view.findViewById<RecyclerView>(R.id.card_recycler_view) as RecyclerView
         val activity = activity
        // linearLayoutManager = LinearLayoutManager(context)
@@ -113,23 +116,6 @@ class FlashCardFragment :Fragment() {
 
         updateCards()
         Log.d(TAG, "before call to database")
-       // testDatabase()
-
-//        //
-//               val executor = Executors.newScheduledThreadPool(4)
-//        doAsync(executor) {  }
-
-
-        // get JSon
-//        doAsync {
-//            val result = URL("https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/git.json").readText()
-//            uiThread {
-//                Log.d("Request",result)
-//               }
-//
-//        }
-
-
         return view
     }
 
@@ -169,10 +155,14 @@ class FlashCardFragment :Fragment() {
             }
         }
 
+
     }
 
     fun updateUI()
-    {   if (isAdded) {
+    {
+        // isAdded function returns boolean is fragment added to activity
+        if (isAdded) {
+
             cardAdapter = CardAdapter(cardArrayList, context)
             cardRecyclerView.adapter = cardAdapter
         }
@@ -182,8 +172,11 @@ class FlashCardFragment :Fragment() {
         private var cardFront: TextView
 
         init {
+            // Where does "itemView" come from well ....
+            //
             cardFront = itemView.findViewById<TextView>(R.id.cardfront) as TextView
             cardBack = itemView.findViewById<TextView>(R.id.cardback) as TextView
+
         }
 
         fun bind(card: Card) {

@@ -1,6 +1,7 @@
 package com.example.dad.kotlincard
 
 import android.util.Log
+import com.example.dad.kotlincard.card.Card
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject

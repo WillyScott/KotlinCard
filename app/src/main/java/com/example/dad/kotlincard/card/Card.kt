@@ -1,4 +1,4 @@
-package com.example.dad.kotlincard
+package com.example.dad.kotlincard.card
 
 import java.io.Serializable
 import com.google.gson.annotations.Expose
