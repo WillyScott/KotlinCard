@@ -1,4 +1,4 @@
-package db;
+package com.example.dad.kotlincard.db;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -6,38 +6,47 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import java.io.Serializable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 
 import java.util.Random;
 
 /**
  * Created by Dad on 11/15/2017.
  */
-@Entity(foreignKeys = @ForeignKey(entity = SetCard.class, parentColumns = "name",
-                                                        childColumns = "set_name", onDelete = ForeignKey.CASCADE),
-         indices = { @Index(value = {"set_name"})})
+@Entity(foreignKeys = @ForeignKey(entity = SetCard.class, parentColumns = "uid",
+                                                        childColumns = "set_uid", onDelete = ForeignKey.CASCADE),
+         indices = { @Index(value = {"set_uid"})})
 
 public class FlashCard {
+
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
     @ColumnInfo ( name = "front_card")
+    @SerializedName ("front") @Expose
     public String frontcard;
 
     @ColumnInfo (name = "back_card")
+    @SerializedName("back") @Expose
     public String backcard;
 
     @ColumnInfo
     public int random_num;
 
     @ColumnInfo
+    private Boolean show = true;
+
+    @ColumnInfo
     @NonNull
-    public String set_name;
+    public Integer set_uid;
 
-    public FlashCard( String frontcard, String backcard, String set_name){
-
+    public FlashCard( String frontcard, String backcard, Integer set_uid){
         this.frontcard = frontcard;
         this.backcard = backcard;
-        this.set_name = set_name;
+        this.set_uid = set_uid;
         this.random_num = new Random().nextInt();
     }
 
@@ -74,11 +83,20 @@ public class FlashCard {
         this.random_num = random_num;
     }
 
-    public String getSet_name() {
-        return set_name;
+    public Integer getSet_uid() {
+        return set_uid;
     }
 
-    public void setSet_name(String set_name) {
-        this.set_name = set_name;
+    public void setSet_name(Integer set_uid) {
+        this.set_uid = set_uid;
     }
+
+    public Boolean getShow() {
+        return show;
+    }
+
+    public void setShow(Boolean show) {
+        this.show = show;
+    }
+
 }

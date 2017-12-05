@@ -1,4 +1,4 @@
-package db;
+package com.example.dad.kotlincard.db;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

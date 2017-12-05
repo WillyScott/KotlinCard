@@ -1,8 +1,6 @@
 package com.example.dad.kotlincard.setcard
 
 import android.support.v4.app.Fragment
-import android.util.Log
-import com.example.dad.kotlincard.FlashCardFragment
 import com.example.dad.kotlincard.SingleFragmentActivity
 
 /**
@@ -10,6 +8,7 @@ import com.example.dad.kotlincard.SingleFragmentActivity
  */
 class SetCardListActivity: SingleFragmentActivity()  {
     override fun createFragment(): Fragment {
+        //var setCard_id:Int = intent.getIntExtra()
         return SetCardFragment.newInstance()
     }
 

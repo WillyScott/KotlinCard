@@ -3,7 +3,13 @@
     <string name="app_name">KotlinCard</string>
     <string name="card_front">Card Front</string>
     <string name="card_back">Card Back</string>
-    <string name="set_name">Set Name</string>
-    <string name="set_description">Set Description</string>
-    <string name="new_set">New Set</string>
+    <string name="set_name_display">Name:\u0020</string>
+    <string name="set_name">Swift Keywords</string>
+    <string name="new_set">Set: </string>
+    <string name="set_section">Swift Keywords V3</string>
+    <string name="set_section_display">Section:\u0020</string>
+    <string name="card_count">99</string>
+    <string name="card_count_display">Count:\u0020</string>
+    <string name="set_discription">Keywords for swift programming language version 3</string>
+    <string name="set_description_display">Description:\u0020</string>
 </resources>

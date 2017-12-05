@@ -1,4 +1,4 @@
-package db;
+package com.example.dad.kotlincard.db;
 
 import android.app.Application;
 import android.util.Log;

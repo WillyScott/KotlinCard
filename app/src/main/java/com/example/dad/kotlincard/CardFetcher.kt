@@ -2,6 +2,7 @@ package com.example.dad.kotlincard
 
 import android.util.Log
 import com.example.dad.kotlincard.card.Card
+import com.example.dad.kotlincard.db.FlashCard
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -90,12 +91,12 @@ class CardFetcher {
         return jsonString
     }
 
-    private fun parseItems(cards: ArrayList<Card>, jsonString: String)  {
+    private fun parseItems(cards: ArrayList<FlashCard>, jsonString: String)  {
          //Get JSON into cards
         //val turnsType = object : TypeToken<List<Turns>>() {}.type
         //val turns = Gson().fromJson<List<Turns>>(pref.turns, turnsType)
 
-        var cardItemType: Type = object : TypeToken<kotlin.collections.ArrayList<Card>>() {}.type
+        var cardItemType: Type = object : TypeToken<kotlin.collections.ArrayList<FlashCard>>() {}.type
 
 
         var gson = Gson()
@@ -103,7 +104,7 @@ class CardFetcher {
             val jsonObject:JSONObject = JSONObject(jsonString)
             val jsonArray:JSONArray = jsonObject.getJSONArray("cards")
             val jsonArrayString = jsonArray.toString()
-            val cardsList:ArrayList<Card> = gson.fromJson(jsonArrayString,cardItemType)
+            val cardsList:ArrayList<FlashCard> = gson.fromJson(jsonArrayString,cardItemType)
             cards.addAll(cardsList)
 
         } catch (e: JSONException) {
@@ -112,8 +113,8 @@ class CardFetcher {
 
     }
 
-    public fun fetchCards():ArrayList<Card> {
-        var cards = ArrayList<Card>()
+    public fun fetchCards():ArrayList<FlashCard> {
+        var cards = ArrayList<FlashCard>()
         var jsonString = getUrlString("test")
         parseItems(cards, jsonString)
         return cards
