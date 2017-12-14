@@ -37,17 +37,19 @@ public class FlashCard {
     public int random_num;
 
     @ColumnInfo
-    private Boolean show = true;
+    public Boolean show = true;
 
     @ColumnInfo
     @NonNull
     public Integer set_uid;
 
-    public FlashCard( String frontcard, String backcard, Integer set_uid){
+    public FlashCard( String frontcard, String backcard, Integer set_uid, Boolean show ){
         this.frontcard = frontcard;
         this.backcard = backcard;
         this.set_uid = set_uid;
+        this.show = show;
         this.random_num = new Random().nextInt();
+
     }
 
 

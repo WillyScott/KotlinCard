@@ -3,13 +3,26 @@
     <string name="app_name">KotlinCard</string>
     <string name="card_front">Card Front</string>
     <string name="card_back">Card Back</string>
-    <string name="set_name_display">Name:\u0020</string>
-    <string name="set_name">Swift Keywords</string>
+    <string name="set_name_display">Name:</string>
     <string name="new_set">Set: </string>
-    <string name="set_section">Swift Keywords V3</string>
-    <string name="set_section_display">Section:\u0020</string>
-    <string name="card_count">99</string>
-    <string name="card_count_display">Count:\u0020</string>
-    <string name="set_discription">Keywords for swift programming language version 3</string>
-    <string name="set_description_display">Description:\u0020</string>
-</resources>
+    <string name="set_section_display">Section:</string>
+    <string name="url_swift_keywords">"https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json"</string>
+    <string name="card_count_display">Count:</string>
+    <string name="set_description_display">Description:</string>
+    <string name="front_card">Front:</string>
+    <string name="back_card">Back:</string>
+    <string name="show_card_checkbox">Show the card:</string>
+    <string name="front_card_hint">Front of the flashcard.</string>
+    <string name="back_card_hint">Back of the flashcard.</string>
+    <string name="new_flashcard">New flashcard</string>
+    <string name="save_button">Save</string>
+    <string name="set_name">Set Name:</string>
+    <string name="set_description">Set Description:</string>
+    <string name="set_section">Set Section:</string>
+    <string name="checkbox_randomize">Randomize</string>
+    <string name="checkbox_reverse">Reverse</string>
+    <string name="checkbox_reverse_hint">Switches front and back of the cards during play</string>
+    <string name="checkbox_randomize_hint">Randomizes cards during play</string>
+    <string name="set_import_url">URL:</string>
+    <string name="set_section_hint">Select a section to group like flashcards</string>
+    </resources>

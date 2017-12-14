@@ -8,7 +8,6 @@ import com.example.dad.kotlincard.SingleFragmentActivity
  */
 class SetCardListActivity: SingleFragmentActivity()  {
     override fun createFragment(): Fragment {
-        //var setCard_id:Int = intent.getIntExtra()
         return SetCardFragment.newInstance()
     }
 

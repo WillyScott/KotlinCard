@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_name" />
+
+    <EditText
+        android:id="@+id/set_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_description" />
+
+    <EditText
+        android:id="@+id/set_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_section" />
+
+    <EditText
+        android:id="@+id/set_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/set_section_hint" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_import_url" />
+
+    <EditText
+        android:id="@+id/set_import_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/url_swift_keywords" />
+
+    <CheckBox
+        android:id="@+id/set_checkbox_randomize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_randomize"
+        android:hint="@string/checkbox_randomize_hint"/>
+
+    <CheckBox
+        android:id="@+id/set_checkbox_reverse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_reverse"
+        android:hint="@string/checkbox_reverse_hint"/>
+
+</LinearLayout>

@@ -21,6 +21,17 @@
         </activity>
         <activity android:name=".FlashCard.FlashCardListActivity">
         </activity>
-     </application>
+        <activity android:name=".setcard.EditSetCardActivity">
+        </activity>
+        <activity android:name=".FlashCard.EditFlashCardActivity">
+        </activity>
+        <activity android:name=".startcards.StartCardsActivity">
+        </activity>
+        <activity android:name=".setcard.NewSetCardActivity">
+        </activity>
+        <activity android:name=".FlashCard.NewFlashCardActivity">
+        </activity>
+
+    </application>
 
 </manifest>

@@ -18,6 +18,7 @@ import com.example.dad.kotlincard.SwipeControllerActions
 import com.example.dad.kotlincard.db.FlashCard
 import com.example.dad.kotlincard.db.MyApp
 import com.example.dad.kotlincard.db.SetCard
+import com.example.dad.kotlincard.startcards.StartCardsActivity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
@@ -76,9 +77,13 @@ class FlashCardFragment :Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if  ( item?.itemId == R.id.new_card){
             Log.d(TAG, "New Card button selected")
+            //Start Activity
+            val intent = NewFlashCardActivity.newIntent(context,setCard_id)
+            startActivity(intent)
             return true
         }else if (item?.itemId == R.id.exportCSV) {
             Log.d(TAG, "Export to csv selected")
+            return true
         }
         return super.onOptionsItemSelected(item)
     }
@@ -98,8 +103,10 @@ class FlashCardFragment :Fragment() {
         var swipeControllerCard = SwipeController(object :SwipeControllerActions() {
             override fun onLeftClicked(position: Int) {
                 super.onLeftClicked(position)
-                //TODO finish edit
 
+                var intent = EditFlashCardActivity.newIntent(context, cardArrayList[position].uid)
+                //var intent = ActivityTest.newIntent(context, 10)
+                startActivity(intent)
             }
 
             override fun onRightClicked(position: Int) {
@@ -122,7 +129,12 @@ class FlashCardFragment :Fragment() {
         bottomNavView = view.findViewById<BottomNavigationView>(R.id.bottom_navigation) as BottomNavigationView
         bottomNavView.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
-                R.id.start -> { Log.d(TAG, "start selected")}
+                R.id.start -> {
+                    Log.d(TAG, "start selected")
+                    var intent = StartCardsActivity.newIntent(context,setCard_id)
+
+                    startActivity(intent)
+                }
                 R.id.resettrue -> {Log.d(TAG, "resettrue selected")}
                 R.id.importdata -> {
                     Log.d(TAG, "importdata selected")
@@ -240,7 +252,7 @@ class FlashCardFragment :Fragment() {
                             Log.d(TAG, "Flashcard deleted.")
                         },
                         onError = {error ->
-                            Log.e(TAG, "Couldn't delete flashcard.", error)
+                            Log.e(TAG, "Couldn't delete FlashCard.", error)
                         }
           )
     }
@@ -254,10 +266,12 @@ class FlashCardFragment :Fragment() {
                             Log.d(TAG, "Flashcard updated.")
                         },
                         onError = {error ->
-                            Log.e(TAG, "Update failed on flashcard.", error)
+                            Log.e(TAG, "Update failed on FlashCard.", error)
                         }
                 )
      }
+
+
 
     internal inner class CardHolder (v: View) :RecyclerView.ViewHolder(v) {
         private var cardBack: TextView

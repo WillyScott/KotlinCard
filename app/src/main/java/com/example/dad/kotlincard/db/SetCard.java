@@ -33,12 +33,16 @@ public class SetCard {
     @ColumnInfo()
     public Integer count = 0;
 
-    public SetCard (String name, String section, String description, String urlString) {
+    public SetCard (String name, String section, String description, String urlString, Boolean randomize, Boolean reverse) {
         this.name = name;
         this.section = section;
         this.description = description;
         this.urlString = urlString;
+        this.randomize = randomize;
+        this.reverse = reverse;
     }
+
+
 
     public Integer getUid() {
         return uid;

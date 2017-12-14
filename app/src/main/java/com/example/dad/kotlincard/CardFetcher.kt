@@ -117,6 +117,10 @@ class CardFetcher {
         var cards = ArrayList<FlashCard>()
         var jsonString = getUrlString("test")
         parseItems(cards, jsonString)
+        // loop cards set show to true
+        for( i in 0 .. cards.size -1){
+            cards[i].show = true
+        }
         return cards
 
     }

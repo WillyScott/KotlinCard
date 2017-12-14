@@ -22,6 +22,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_set_list.*
 import java.util.*
+import kotlin.math.E
 
 /**
  * Created by Dad on 11/27/2017.
@@ -31,6 +32,7 @@ import java.util.*
 class SetCardFragment: Fragment() {
 
     private lateinit var setRecyclerView:RecyclerView
+    //TODO delete setArrayList
     private lateinit var setArrayList: ArrayList<SetCard>
     private lateinit var setCardAdapter: SetAdapter
     private final val TAG = "SetCardFragment"
@@ -48,8 +50,6 @@ class SetCardFragment: Fragment() {
     companion object {
        // private final val ARG_SETCARD_ID = "set_uid"
         fun newInstance():SetCardFragment {
-//            var args:Bundle = Bundle()
-//            args.putInt(ARG_SETCARD_ID,uid)
             return SetCardFragment()
         }
     }
@@ -67,7 +67,7 @@ class SetCardFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var view = inflater!!.inflate(R.layout.fragment_set_list,container, false)
-
+        retainInstance
         setRecyclerView= view.findViewById(R.id.set_recycler_view)
         setRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -76,9 +76,11 @@ class SetCardFragment: Fragment() {
             override fun onLeftClicked(position: Int) {
                 super.onLeftClicked(position)
                 Log.d(TAG, "Left/Edit recycler view button clicked for id:" + position )
-                //Start SetCardEditNew
 
-            }
+                //Start activity
+                val intent = EditSetCardActivity.newIntent(context,setCardsArrayList[position].uid)
+                startActivity(intent)
+        }
 
             override fun onRightClicked(position: Int) {
                 super.onRightClicked(position)
@@ -110,7 +112,9 @@ class SetCardFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.new_set) {
             Log.d(TAG, "New set menu item pressed")
-            addSet()
+            //addSet()
+            val intent = NewSetCardActivity.newIntent(context)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -132,23 +136,23 @@ class SetCardFragment: Fragment() {
         }
     }
 
-    fun addSet() {
-
-        Single.fromCallable {
-            val num = Random().nextInt()
-            val setCard = SetCard("Bubbas" + num, "Kotlin", "Us or them", "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json")
-            MyApp.dataBase.setCardDao().insert(setCard)
-        }
-                .subscribeOn(Schedulers.io())
-                .subscribeBy(
-                        onSuccess = { setcard ->
-                            Log.d(TAG, "SetCard added.")
-                        },
-                        onError = {error ->
-                            Log.e(TAG, "Couldn't write SetCard to database", error)
-                        }
-                )
-    }
+//    fun addSet() {
+//
+//        Single.fromCallable {
+//            val num = Random().nextInt()
+//            val setCard = SetCard("Bubbas" + num, "Kotlin", "Us or them", "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json")
+//            MyApp.dataBase.setCardDao().insert(setCard)
+//        }
+//                .subscribeOn(Schedulers.io())
+//                .subscribeBy(
+//                        onSuccess = { intCode ->
+//                            Log.d(TAG, "SetCard added: " + intCode)
+//                        },
+//                        onError = {error ->
+//                            Log.e(TAG, "Couldn't write SetCard to database", error)
+//                        }
+//                )
+//    }
 
     fun deleteSet(num: Int) {
         Single.fromCallable {
@@ -169,20 +173,16 @@ class SetCardFragment: Fragment() {
 
     }
 
-
     internal inner class  RecyclerSwipeActions : SwipeControllerActions(){
         //private final val TAG = "RecyclerSwipeActions"
         override fun onLeftClicked(position: Int) {
             super.onLeftClicked(position)
-
             Log.d(TAG, "Left/Edit recycler view button clicked for id:" + position )
-
         }
 
         override fun onRightClicked(position: Int) {
             super.onRightClicked(position)
             Log.d(TAG, "Right/Delete recycler view button clicked id" + position)
-
         }
     }
 
