@@ -15,6 +15,8 @@ import com.example.dad.kotlincard.db.FlashCard
 import com.example.dad.kotlincard.db.MyApp
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.internal.operators.single.SingleFromCallable
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -36,21 +38,13 @@ class StartCardsActivity:AppCompatActivity() {
             return intent
         }
     }
-//
-//    override fun createFragment(): Fragment {
-//        //Get the Intent extra
-//        val setCard_ID = intent.getIntExtra(StartCardsActivity.EXTRA_SETCARD_ID,-1)
-//        return StartCardsFragment.newInstance(setCard_ID)
-//    }
-
-
 
     override  protected fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG,"OnCreate")
         setContentView(R.layout.activity_start_cards)
         val setCard_ID = intent.getIntExtra(StartCardsActivity.EXTRA_SETCARD_ID,-1)
-        setTitle("StartCards")
+        setTitle("Flash cards")
         flashcardsStart = ArrayList<FlashCard>()
 
         viewPager = findViewById<ViewPager>(R.id.start_cards_view_pager)
@@ -58,22 +52,26 @@ class StartCardsActivity:AppCompatActivity() {
 
         //query the database for the flashcards from the set
 
-                MyApp.dataBase.flashCardDao().getAll(setCard_ID)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{
-                    flashCards ->
+
+        SingleFromCallable{
+            MyApp.dataBase.flashCardDao().getAllStart(setCard_ID)
+        }.subscribeOn(Schedulers.io())
+                .subscribeBy(
+                        onSuccess = { flashcards ->
+                            Log.d(TAG, "Flashcard found.")
                     flashcardsStart.clear()
-                    flashcardsStart.addAll(flashCards)
+                    flashcardsStart.addAll(flashcards)
                     Log.d(TAG, "Query run againThe count of flashcards is: " + flashcardsStart.size)
                     pageAdaper = FlashCardPageAdapter(fm,flashcardsStart)
-                    viewPager.adapter = pageAdaper
-                }
+                  viewPager.adapter = pageAdaper
+                        },
+                        onError = {error ->
+                            Log.e(TAG, "Flashcards not found.", error)
+                        }
+                )
     }
 
     internal inner class FlashCardPageAdapter( fragmentManager: FragmentManager, flashcards: ArrayList<FlashCard>):FragmentStatePagerAdapter(fragmentManager) {
-
-
         override fun getCount(): Int {
             return flashcardsStart.size
         }
@@ -81,6 +79,5 @@ class StartCardsActivity:AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             return StartCardsFragment.newInstance(flashcardsStart[position].uid, position, count)
         }
-
     }
 }

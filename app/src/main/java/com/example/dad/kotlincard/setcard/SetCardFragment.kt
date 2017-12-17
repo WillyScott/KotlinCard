@@ -76,7 +76,6 @@ class SetCardFragment: Fragment() {
             override fun onLeftClicked(position: Int) {
                 super.onLeftClicked(position)
                 Log.d(TAG, "Left/Edit recycler view button clicked for id:" + position )
-
                 //Start activity
                 val intent = EditSetCardActivity.newIntent(context,setCardsArrayList[position].uid)
                 startActivity(intent)
@@ -120,7 +119,6 @@ class SetCardFragment: Fragment() {
     }
 
     fun setCardListener () {
-
         MyApp.dataBase.setCardDao().allSets
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -131,7 +129,7 @@ class SetCardFragment: Fragment() {
                     Log.d(TAG, "the size of list is: " + setCardsArrayList.size)
 
                     setCardAdapter = SetAdapter(setCardsArrayList,context)
-                    set_recycler_view.adapter = setCardAdapter
+                    setRecyclerView.adapter = setCardAdapter
                     setCardAdapter.notifyDataSetChanged()
         }
     }
@@ -190,7 +188,10 @@ class SetCardFragment: Fragment() {
     internal inner class SetHolder (v :View) :RecyclerView.ViewHolder(v),View.OnClickListener  {
         private var setName : TextView
         private var setDescription: TextView
+        private var setSection:TextView
         private var setCount: TextView
+
+
 
         private lateinit var setCard :SetCard
         //final private val TAG = "SetHolder"
@@ -198,6 +199,8 @@ class SetCardFragment: Fragment() {
         init {
             setName = v.findViewById<TextView>(R.id.set_name) as TextView
             setDescription = v.findViewById<TextView>(R.id.set_description) as TextView
+            setSection = v.findViewById<TextView>(R.id.set_section) as TextView
+
             setCount = v.findViewById<TextView>(R.id.set_card_count) as TextView
             itemView.setOnClickListener(this)
         }
@@ -206,6 +209,7 @@ class SetCardFragment: Fragment() {
             setCard = set
             setName.setText(setCard.name)
             setDescription.setText(setCard.description)
+            setSection.setText(setCard.section)
             //Log.d(TAG,"card count is " + setCard.count)
             setCount.setText(set.count.toString())
         }

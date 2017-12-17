@@ -67,11 +67,9 @@ class FlashCardFragment :Fragment() {
         inflater?.inflate(R.menu.fragment_card_list,menu)
     }
 
-
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         cardArrayList = ArrayList<FlashCard>()
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -95,7 +93,6 @@ class FlashCardFragment :Fragment() {
         //Do I need this or not  recyclerview stays on last item.
         //retainInstance = true
 
-
         //TODO update to  3 lines below see SetCardFragment  wsg
         cardRecyclerView = view.findViewById<RecyclerView>(R.id.card_recycler_view) as RecyclerView
         cardRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -103,9 +100,7 @@ class FlashCardFragment :Fragment() {
         var swipeControllerCard = SwipeController(object :SwipeControllerActions() {
             override fun onLeftClicked(position: Int) {
                 super.onLeftClicked(position)
-
                 var intent = EditFlashCardActivity.newIntent(context, cardArrayList[position].uid)
-                //var intent = ActivityTest.newIntent(context, 10)
                 startActivity(intent)
             }
 
@@ -132,10 +127,13 @@ class FlashCardFragment :Fragment() {
                 R.id.start -> {
                     Log.d(TAG, "start selected")
                     var intent = StartCardsActivity.newIntent(context,setCard_id)
-
                     startActivity(intent)
                 }
-                R.id.resettrue -> {Log.d(TAG, "resettrue selected")}
+                R.id.resettrue -> {
+                    Log.d(TAG, "resettrue selected")
+                    //reset the show field to true
+                    updateFlashCardtotrue()
+                }
                 R.id.importdata -> {
                     Log.d(TAG, "importdata selected")
                     importCards()
@@ -144,16 +142,13 @@ class FlashCardFragment :Fragment() {
 
             true
         }
-        //
-
 
         flashCardListener()
-
-        Log.d(TAG, "before call to database")
         return view
     }
 
     fun flashCardListener() {
+
         MyApp.dataBase.flashCardDao().getAll(setCard_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -165,16 +160,10 @@ class FlashCardFragment :Fragment() {
                         cardRecyclerView.adapter = cardAdapter
                         cardAdapter.notifyDataSetChanged()
                         updateSetCard(setCard)
-
-                }
-
-        //update SetCard counts of flashcards
-        //updateSetCard(setCard)
-
+                  }
     }
 
     fun getSetcard(setID :Int){
-
         Single.fromCallable {
             MyApp.dataBase.setCardDao().getSet(setID)
         }.subscribeOn(Schedulers.io())
@@ -185,17 +174,13 @@ class FlashCardFragment :Fragment() {
                         onError = {error ->
                             Log.e(TAG, "Couldn't get SetCard. " + error)
                         }
-
                 )
     }
 
     fun updateSetCard (setCard: SetCard) {
         Single.fromCallable {
             setCard.setCount(cardArrayList.size)
-            setCard.name = "BubbaDude"
-
             Log.d(TAG, "the count is " + setCard.count)
-
             MyApp.dataBase.setCardDao().update(setCard)
         }.subscribeOn(Schedulers.io())
                 .subscribeBy(
@@ -208,38 +193,36 @@ class FlashCardFragment :Fragment() {
                 )
     }
 
+    // Function that  import the cards from a URL (in a JSON format)
     fun importCards()  {
         doAsync {
-            cardArrayList = CardFetcher().fetchCards()
+            //Get the URL field to import from
+            //TODO need to test for empty and incorrect URL
 
-            Log.d(TAG, "number of cards found is: " + cardArrayList.size)
-                 //If cards were found persist to database first update parent key
-            if (cardArrayList.size > 0){
-                for (i in 0 .. cardArrayList.size - 1) {
-                         cardArrayList[i].set_uid = setCard_id
-                     }
-                 }
-                 //Save the newly imported flashcards
-                 MyApp.dataBase.flashCardDao().insertAll(cardArrayList)
+            if (setCard.urlString.isEmpty()) {
+                //TODO:  add a message to user
 
-                 uiThread {
-                    // Remove when listener added
-                   // updateUI()
+            }else {
+
+                cardArrayList = CardFetcher().fetchCards(setCard.urlString)
+
+                Log.d(TAG, "number of cards found is: " + cardArrayList.size)
+                //If cards were found persist to database first update parent key
+                if (cardArrayList.size > 0) {
+                    for (i in 0..cardArrayList.size - 1) {
+                        cardArrayList[i].set_uid = setCard_id
+                        cardArrayList[i].show = true
+                    }
                 }
+                //Save the newly imported flashcards
+                MyApp.dataBase.flashCardDao().insertAll(cardArrayList)
+                uiThread {
+                    // TODO Remove when listener added
+                }
+
+            }
         }
     }
-
-//    fun updateUI()
-//    {
-//        // isAdded function returns boolean if fragment added to activity
-//        // is this needed or a safety
-//        if (isAdded) {
-//
-//            cardAdapter = CardAdapter(cardArrayList, context)
-//            cardRecyclerView.adapter = cardAdapter
-//            cardAdapter.notifyDataSetChanged()
-//        }
-//    }
 
     fun deleteFlashCard(num: Int) {
         val flashCard = cardArrayList[num]
@@ -255,6 +238,7 @@ class FlashCardFragment :Fragment() {
                             Log.e(TAG, "Couldn't delete FlashCard.", error)
                         }
           )
+
     }
 
     fun updateFlashCard(num: Int) {
@@ -271,21 +255,43 @@ class FlashCardFragment :Fragment() {
                 )
      }
 
+    fun updateFlashCardtotrue () {
+        Single.fromCallable {
+            MyApp.dataBase.flashCardDao().updateShowCardTrue(setCard_id)
+        }.subscribeOn(Schedulers.io())
+                .subscribeBy(
+                        onSuccess = { result ->
+                            Log.d(TAG, "Update of flashcards show field successful. " + result)
+                        },
+                        onError = {error ->
+                            Log.e(TAG, "Update failed on flashcards show field: " + error)
+                        }
+                )
+    }
 
-
+    // Why internal?
     internal inner class CardHolder (v: View) :RecyclerView.ViewHolder(v) {
         private var cardBack: TextView
         private var cardFront: TextView
+        private var showCard: TextView
 
         init {
             cardFront = itemView.findViewById<TextView>(R.id.cardfront) as TextView
             cardBack = itemView.findViewById<TextView>(R.id.cardback) as TextView
+            showCard = itemView.findViewById<TextView>(R.id.showcard) as TextView
         }
 
         fun bind(card: FlashCard) {
             //Log.d(TAG, "the back is: " + card.backcard)
             cardBack.setText(card.backcard)
             cardFront.setText(card.frontcard)
+            if (card.show == null){
+                showCard.setText("true")
+            }else if (card.show == true){
+                showCard.setText("true")
+            }else {
+                showCard.setText("false")
+            }
         }
     }
 

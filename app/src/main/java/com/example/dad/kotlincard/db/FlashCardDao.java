@@ -19,11 +19,17 @@ public interface FlashCardDao {
     @Query("SELECT * FROM flashcard WHERE set_uid = :id")
     public Flowable<List<FlashCard>> getAll(Integer id);
 
-    @Query("SELECT * FROM flashcard WHERE set_uid = :id AND show = 'true'")
-    public Flowable<List<FlashCard>> getAllStart(Integer id);
+    @Query("SELECT * FROM flashcard WHERE set_uid = :id AND show = 1")
+    public Flowable<List<FlashCard>> getAllStartFlowable(Integer id);
+
+    @Query("SELECT * FROM flashcard WHERE set_uid = :id AND show = 1")
+    public List<FlashCard> getAllStart(Integer id);
 
     @Query("SELECT * FROM flashcard WHERE uid = :id")
     public FlashCard get(Integer id);
+
+    @Query("Update flashcard set show = 1 WHERE set_uid = :id")
+    public int updateShowCardTrue(Integer id);
 
     @Insert
     public long insert(FlashCard flashcard);

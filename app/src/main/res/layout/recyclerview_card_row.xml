@@ -14,16 +14,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/cardfront"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/card_front" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/cardfront"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorAccent"
+            android:text="@string/card_front" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="right"
+            android:text="Show:"/>
+
+
+        <TextView
+            android:id="@+id/showcard"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/true_show"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/cardback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
         android:text="@string/card_back" />
 
 </LinearLayout>

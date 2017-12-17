@@ -1,9 +1,11 @@
 package com.example.dad.kotlincard.startcards
 
+import android.animation.*
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.TextView
 import com.example.dad.kotlincard.R
 import com.example.dad.kotlincard.SingleFragmentActivity
@@ -25,10 +27,17 @@ class StartCardsFragment:Fragment() {
     private var card_id: Int = -1
     private var position: Int = -1
     private var count: Int = -1
+    private var frontVisible = true
     private lateinit var frontbackCard:TextView
     private lateinit var page:TextView
     private lateinit var knowCard:TextView
     private lateinit var currentFlashCard: FlashCard
+    private lateinit var frameContainer:FrameLayout
+    private lateinit var setRightOut:AnimatorSet
+    private lateinit var setLeftIn:AnimatorSet
+    private lateinit var setLeftOut:AnimatorSet
+    private lateinit var setRightin:AnimatorSet
+
 
 
     companion object {
@@ -61,6 +70,7 @@ class StartCardsFragment:Fragment() {
         frontbackCard = view.findViewById<TextView>(R.id.frontbackView) as TextView
         page = view.findViewById<TextView>(R.id.pagenum) as TextView
         knowCard = view.findViewById<TextView>(R.id.knowit) as TextView
+        frameContainer = view.findViewById<FrameLayout>(R.id.container) as FrameLayout
 
 
 
@@ -70,13 +80,27 @@ class StartCardsFragment:Fragment() {
         view.setOnTouchListener(object : OnSwipeTouchListener(activity) {
             override fun onClick() {
                 super.onClick()
-                Log.d(TAG,"view single click")
+                Log.d(TAG,"single click")
+                //switch to the other side of card and animate the change
                 onStartAnimationtoBack()
             }
 
             override fun onSwipeUp() {
                 super.onSwipeUp()
                 Log.d(TAG, "view swipe up")
+                //set form and and show field to false
+
+                currentFlashCard.show = false
+                saveFlashCard(currentFlashCard)
+                knowCard.setText("Know it")
+            }
+
+            override fun onSwipeDown() {
+                super.onSwipeDown()
+                currentFlashCard.show = true
+                saveFlashCard(currentFlashCard)
+                knowCard.setText("")
+
             }
         })
 
@@ -87,13 +111,13 @@ class StartCardsFragment:Fragment() {
        }       .subscribeOn(Schedulers.io())
                .subscribeBy(
                        onSuccess = { flashcard ->
-//                           currentFlashCard = flashcard
-//                           if (flashcard.show == true ) {
-//                              // knowCard.setText("")
-//
-//                           }else {
-//                              // knowCard.setText("Know it")
-//                           }
+                           currentFlashCard = flashcard
+                           if (flashcard.show == true ) {
+                               knowCard.setText("")
+
+                           }else {
+                               knowCard.setText("Know it")
+                           }
 
                            frontbackCard.setText(flashcard.frontcard)
                            page.setText((position +1).toString() + " of " + count.toString())
@@ -108,10 +132,101 @@ class StartCardsFragment:Fragment() {
 
     fun onStartAnimationtoBack () {
         //frontbackCard.setText(currentFlashCard.backcard)
+        Log.d(TAG, "onStartAnimationtoBack")
+//        val animatorSet = AnimatorSet()
+//        val animation = ValueAnimator.ofFloat()
+//        frameContainer.animate().rotationY(90f).setDuration(1000L).start()
+//        frontbackCard.setText("back card")
+       // frontbackCard.animate().rotationY(-90f).setDuration(1000L).start()
+        loadAnimations()
+        //changeCameraDistance()
+
+        setLeftIn.setTarget(frameContainer)
+        setLeftOut.setTarget(frameContainer)
+
+
+        if (frontVisible) {
+            frontVisible = false
+//            setRightOut.setTarget(frameContainer)
+//            setLeftIn.setTarget(frameContainer)
+
+//            setRightOut.start()
+//            setLeftIn.start()
+            setLeftOut.start()
+            setLeftIn.start()
+
+            //change background color so user knows its the back of the card
+            frontbackCard.setBackgroundColor(resources.getColor(R.color.grey))
+            page.setBackgroundColor(resources.getColor(R.color.grey))
+            knowCard.setBackgroundColor(resources.getColor(R.color.grey))
+            frontbackCard.setText(currentFlashCard.backcard)
+
+        }else {
+            frontVisible = true
+//            setRightOut.setTarget(frameContainer)
+//            setLeftIn.setTarget(frameContainer)
+
+//            setRightOut.start()
+//            setLeftIn.start()
+            setRightOut.setTarget(frameContainer)
+            setRightin.setTarget(frameContainer)
+
+            setRightin.start()
+            setRightOut.start()
+
+
+            frontbackCard.setBackgroundColor(resources.getColor(R.color.green))
+            page.setBackgroundColor(resources.getColor(R.color.green))
+            knowCard.setBackgroundColor(resources.getColor(R.color.green))
+
+
+            frontbackCard.setText(currentFlashCard.frontcard)
+        }
     }
 
-    fun onStartAnimationtoFront() {
+    fun loadAnimations() {
 
+//        setRightOut = AnimatorInflater.loadAnimator(context,R.animator.out_animation) as AnimatorSet
+//        setLeftIn = AnimatorInflater.loadAnimator(context,R.animator.in_animation) as AnimatorSet
+
+        setLeftIn = AnimatorInflater.loadAnimator(context,R.animator.card_flip_left_in) as AnimatorSet
+        setLeftOut = AnimatorInflater.loadAnimator(context,R.animator.card_flip_left_out) as AnimatorSet
+
+        setRightOut = AnimatorInflater.loadAnimator(context,R.animator.card_flip_right_in) as AnimatorSet
+        setRightin = AnimatorInflater.loadAnimator(context,R.animator.card_flip_right_out) as AnimatorSet
+
+
+
+    }
+
+    fun changeCameraDistance() {
+        val distance:Int = 8000;
+        var scale:Float = getResources().getDisplayMetrics().density * distance;
+       frameContainer.setCameraDistance(scale);
+
+    }
+
+
+    //TODO: finish
+    // Sets the camera distance back to hid something?
+
+
+
+       fun saveFlashCard(flashCard: FlashCard) {
+        SingleFromCallable {
+            //update the flashcard from database to current values
+
+            // var flashcard = FlashCard(frontTextView.text.toString(), backTextView.text.toString(), flash_card_id, showCheckBox.isChecked)
+            MyApp.dataBase.flashCardDao().update(flashCard)
+        }       .subscribeOn(Schedulers.io())
+                .subscribeBy (
+                        onSuccess = {intCode ->
+                            Log.d(TAG, "Wrote flashcard to database: " + intCode)
+                        },
+                        onError = { error ->
+                            Log.e(TAG, "Could not update the flashcard: "+ error)
+                        }
+                )
     }
 
 }

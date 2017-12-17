@@ -28,10 +28,13 @@ public class SetCard {
     public Boolean reverse = false;
 
     @ColumnInfo()
-    public String urlString = "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json";
+    public String urlString = "https://raw.githubusercontent.com/WillyScott/AndroidProgramming3rd/master/ap7.json";
 
     @ColumnInfo()
     public Integer count = 0;
+
+//    @ColumnInfo
+//    public Integer countShow = 0;
 
     public SetCard (String name, String section, String description, String urlString, Boolean randomize, Boolean reverse) {
         this.name = name;
@@ -97,5 +100,14 @@ public class SetCard {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+//    public Integer getCountShow() {
+//        return countShow;
+//    }
+//
+//    public void setCountShow(Integer countShow) {
+//        this.countShow = countShow;
+//    }
+
 
 }

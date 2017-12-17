@@ -6,7 +6,7 @@
     <string name="set_name_display">Name:</string>
     <string name="new_set">Set: </string>
     <string name="set_section_display">Section:</string>
-    <string name="url_swift_keywords">"https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json"</string>
+    <string name="url_swift_keywords">"https://raw.githubusercontent.com/WillyScott/AndroidProgramming3rd/master/ap7.json"</string>
     <string name="card_count_display">Count:</string>
     <string name="set_description_display">Description:</string>
     <string name="front_card">Front:</string>
@@ -25,4 +25,5 @@
     <string name="checkbox_randomize_hint">Randomizes cards during play</string>
     <string name="set_import_url">URL:</string>
     <string name="set_section_hint">Select a section to group like flashcards</string>
+    <string name="true_show">true</string>
     </resources>

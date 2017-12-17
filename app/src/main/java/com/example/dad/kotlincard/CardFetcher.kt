@@ -17,13 +17,14 @@ import java.lang.reflect.Type
 /**
  * Created by Dad on 11/3/2017.
  */
-class CardFetcher {
+class CardFetcher() {
     private final val TAG = "CardFetcher"
 
     private fun getUrlString(urlString: String):String {
         //  https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/git.json
 
-        var url = URL("https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json")
+        //var url = URL("https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json")
+        var url = URL(urlString)
         var connection = url.openConnection() as HttpURLConnection
 
 
@@ -113,9 +114,9 @@ class CardFetcher {
 
     }
 
-    public fun fetchCards():ArrayList<FlashCard> {
+    public fun fetchCards(url:String):ArrayList<FlashCard> {
         var cards = ArrayList<FlashCard>()
-        var jsonString = getUrlString("test")
+        var jsonString = getUrlString(url)
         parseItems(cards, jsonString)
         // loop cards set show to true
         for( i in 0 .. cards.size -1){
