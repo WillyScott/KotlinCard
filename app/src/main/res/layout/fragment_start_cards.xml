@@ -17,23 +17,26 @@
         android:layout_height="wrap_content"
         android:inputType="none"
         android:text="knowit"
+        android:textSize="@dimen/text_size_pageknowit"
         android:gravity="center_horizontal"/>
 
     <TextView
         android:id="@+id/frontbackView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="0dp"
+        android:textSize="@dimen/text_size_cards"
         android:layout_weight="1"
         android:gravity="center"
-
         android:inputType="none"
-        android:text="TextView" />
+        android:text="TextView"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
 
     <TextView
         android:id="@+id/pagenum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:textSize="@dimen/text_size_pageknowit"
         android:gravity="center_horizontal"
         android:inputType="none"
         android:text="3 of 90" />
