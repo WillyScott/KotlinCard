@@ -26,4 +26,8 @@
     <string name="set_import_url">URL:</string>
     <string name="set_section_hint">Select a section to group like flashcards</string>
     <string name="true_show">true</string>
+    <string name="exportfile">Export to file</string>
+    <string name="filecvs">CVS</string>
+    <string name="filejson">JSON</string>
+    <string name="alertclipboard">Copied to clipboard</string>
     </resources>

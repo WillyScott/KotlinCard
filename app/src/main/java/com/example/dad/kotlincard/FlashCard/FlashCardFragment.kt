@@ -18,6 +18,7 @@ import com.example.dad.kotlincard.SwipeControllerActions
 import com.example.dad.kotlincard.db.FlashCard
 import com.example.dad.kotlincard.db.MyApp
 import com.example.dad.kotlincard.db.SetCard
+import com.example.dad.kotlincard.export.ExportCardsActivity
 import com.example.dad.kotlincard.startcards.StartCardsActivity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -81,6 +82,8 @@ class FlashCardFragment :Fragment() {
             return true
         }else if (item?.itemId == R.id.exportCSV) {
             Log.d(TAG, "Export to csv selected")
+            val intent = ExportCardsActivity.newIntent(context,setCard_id)
+            startActivity(intent)
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -126,7 +129,7 @@ class FlashCardFragment :Fragment() {
             when(item.itemId) {
                 R.id.start -> {
                     Log.d(TAG, "start selected")
-                    var intent = StartCardsActivity.newIntent(context,setCard_id)
+                    var intent = StartCardsActivity.newIntent(context,setCard.uid,setCard.randomize, setCard.reverse)
                     startActivity(intent)
                 }
                 R.id.resettrue -> {
@@ -183,7 +186,7 @@ class FlashCardFragment :Fragment() {
             Log.d(TAG, "the count is " + setCard.count)
             MyApp.dataBase.setCardDao().update(setCard)
         }.subscribeOn(Schedulers.io())
-                .subscribeBy(
+         .subscribeBy(
                         onSuccess = { num ->
                             Log.d(TAG, "SetCard updated. " + num)
                         },
@@ -193,7 +196,7 @@ class FlashCardFragment :Fragment() {
                 )
     }
 
-    // Function that  import the cards from a URL (in a JSON format)
+    // Function that  import the cards from a URL (in a JSON format) off the main thread
     fun importCards()  {
         doAsync {
             //Get the URL field to import from
@@ -205,8 +208,6 @@ class FlashCardFragment :Fragment() {
             }else {
 
                 cardArrayList = CardFetcher().fetchCards(setCard.urlString)
-
-                Log.d(TAG, "number of cards found is: " + cardArrayList.size)
                 //If cards were found persist to database first update parent key
                 if (cardArrayList.size > 0) {
                     for (i in 0..cardArrayList.size - 1) {
@@ -217,7 +218,7 @@ class FlashCardFragment :Fragment() {
                 //Save the newly imported flashcards
                 MyApp.dataBase.flashCardDao().insertAll(cardArrayList)
                 uiThread {
-                    // TODO Remove when listener added
+                    // TODO Remove this nothing to do on main thread
                 }
 
             }

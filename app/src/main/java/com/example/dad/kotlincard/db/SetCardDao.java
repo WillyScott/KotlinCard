@@ -19,6 +19,9 @@ public interface SetCardDao {
     @Query("SELECT * FROM setcard")
     public Flowable<List<SetCard>> getAllSets();
 
+    @Query("SELECT * FROM setcard ORDER BY section")
+    public Flowable<List<SetCard>> getAllSetsSorted();
+
     @Query("SELECT * FROM setcard WHERE uid = :id")
     public SetCard getSet(Integer id);
 

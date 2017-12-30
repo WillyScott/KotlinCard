@@ -119,7 +119,7 @@ class SetCardFragment: Fragment() {
     }
 
     fun setCardListener () {
-        MyApp.dataBase.setCardDao().allSets
+        MyApp.dataBase.setCardDao().allSetsSorted
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe{

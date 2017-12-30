@@ -27,6 +27,7 @@ class StartCardsFragment:Fragment() {
     private var card_id: Int = -1
     private var position: Int = -1
     private var count: Int = -1
+    private var reverseFrontBack = false
     private var frontVisible = true
     private lateinit var frontbackCard:TextView
     private lateinit var page:TextView
@@ -38,17 +39,17 @@ class StartCardsFragment:Fragment() {
     private lateinit var setLeftOut:AnimatorSet
     private lateinit var setRightin:AnimatorSet
 
-
-
     companion object {
         private final var ARG_CARD_ID = "setcard_id"
         private final var ARG_POSITION = "postion"
         private final var ARG_COUNT = "count"
-        fun newInstance(uid: Int, pos : Int, count: Int):StartCardsFragment{
+        private final var ARG_REVERSE = "reverse"
+        fun newInstance(uid: Int, pos : Int, count: Int, reverse: Boolean):StartCardsFragment{
             val args = Bundle()
             args.putInt(ARG_CARD_ID,uid)
             args.putInt(ARG_POSITION,pos)
             args.putInt(ARG_COUNT,count)
+            args.putBoolean(ARG_REVERSE, reverse)
             val fragment = StartCardsFragment()
             fragment.arguments = args
             return fragment
@@ -60,8 +61,9 @@ class StartCardsFragment:Fragment() {
         card_id = arguments.getInt(ARG_CARD_ID)
         position = arguments.getInt(ARG_POSITION)
         count = arguments.getInt(ARG_COUNT)
+        reverseFrontBack = arguments.getBoolean(ARG_REVERSE)
 
-        Log.d(TAG, "The flashcard ID is: " + card_id)
+      //  Log.d(TAG, "The flashcard ID is: " + card_id)
     }
 
 
@@ -71,8 +73,6 @@ class StartCardsFragment:Fragment() {
         page = view.findViewById<TextView>(R.id.pagenum) as TextView
         knowCard = view.findViewById<TextView>(R.id.knowit) as TextView
         frameContainer = view.findViewById<FrameLayout>(R.id.container) as FrameLayout
-
-
 
         // Single click whick will call animation and flip card to the back
         //Swipe up which will mark the card as "Know it!".
@@ -118,9 +118,16 @@ class StartCardsFragment:Fragment() {
                            }else {
                                knowCard.setText("Know it")
                            }
+                           //Reverse the front and back is reverse field is set to true.
 
-                           frontbackCard.setText(flashcard.frontcard)
-                           page.setText((position +1).toString() + " of " + count.toString())
+                           // Reverse the cards if the reverse field is set to true
+                           if (reverseFrontBack){
+                               frontbackCard.setText(currentFlashCard.backcard)
+                           } else {
+                               frontbackCard.setText(currentFlashCard.frontcard)
+                           }
+
+                          page.setText((position +1).toString() + " of " + count.toString())
                        },
                        onError = {error ->
                             Log.e(TAG, "Couldn't get the flashcard: ",error)
@@ -139,7 +146,7 @@ class StartCardsFragment:Fragment() {
 //        frontbackCard.setText("back card")
        // frontbackCard.animate().rotationY(-90f).setDuration(1000L).start()
         loadAnimations()
-        //changeCameraDistance()
+        changeCameraDistance()
 
         setLeftIn.setTarget(frameContainer)
         setLeftOut.setTarget(frameContainer)
@@ -159,7 +166,16 @@ class StartCardsFragment:Fragment() {
             frontbackCard.setBackgroundColor(resources.getColor(R.color.grey))
             page.setBackgroundColor(resources.getColor(R.color.grey))
             knowCard.setBackgroundColor(resources.getColor(R.color.grey))
-            frontbackCard.setText(currentFlashCard.backcard)
+            // Reverse the cards if reverse field is set to true
+
+            //frontbackCard.setText(currentFlashCard.backcard)
+
+            // Reverse the cards if the reverse field is set to true
+            if (reverseFrontBack){
+                frontbackCard.setText(currentFlashCard.frontcard)
+            } else {
+                frontbackCard.setText(currentFlashCard.backcard)
+            }
 
         }else {
             frontVisible = true
@@ -179,8 +195,14 @@ class StartCardsFragment:Fragment() {
             page.setBackgroundColor(resources.getColor(R.color.green))
             knowCard.setBackgroundColor(resources.getColor(R.color.green))
 
+            //frontbackCard.setText(currentFlashCard.frontcard)
 
-            frontbackCard.setText(currentFlashCard.frontcard)
+            // Reverse the cards if the reverse field is set to true
+            if (reverseFrontBack){
+                frontbackCard.setText(currentFlashCard.backcard)
+            } else {
+                frontbackCard.setText(currentFlashCard.frontcard)
+            }
         }
     }
 
@@ -210,11 +232,9 @@ class StartCardsFragment:Fragment() {
     //TODO: finish
     // Sets the camera distance back to hid something?
 
-
-
        fun saveFlashCard(flashCard: FlashCard) {
         SingleFromCallable {
-            //update the flashcard from database to current values
+            //update the flashcard from database to current values, the only value changing is the "Know-it" or  show field on flashcards.
 
             // var flashcard = FlashCard(frontTextView.text.toString(), backTextView.text.toString(), flash_card_id, showCheckBox.isChecked)
             MyApp.dataBase.flashCardDao().update(flashCard)
@@ -228,5 +248,4 @@ class StartCardsFragment:Fragment() {
                         }
                 )
     }
-
 }

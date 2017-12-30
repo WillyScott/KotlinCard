@@ -10,6 +10,6 @@
     <item
         android:id="@+id/exportCSV"
         android:icon="@drawable/ic_menu_export"
-        android:title="Export(csv)"
+        android:title="@string/exportfile"
         app:showAsAction="ifRoom|withText" />
 </menu>

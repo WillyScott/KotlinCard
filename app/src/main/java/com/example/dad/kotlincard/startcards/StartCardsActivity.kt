@@ -27,14 +27,20 @@ class StartCardsActivity:AppCompatActivity() {
     private lateinit var flashcardsStart :ArrayList<FlashCard>
     private lateinit var viewPager:ViewPager
     private lateinit var pageAdaper:FlashCardPageAdapter
+    private var setCard_reverse = false
 
 
 
     companion object {
         private final val EXTRA_SETCARD_ID = "com.example.dad.kotlincard"
-        fun newIntent(context: Context,uid:Int): Intent {
+        private final val EXTRA_SETCARD_RANDOMIZE = "com.example.dad.kotlincard.randomize"
+        private final val EXTRA_SETCARD_REVERSE = "com.example.dad.kotlincard.reverse"
+        //TODO add randomize, reverse
+        fun newIntent(context: Context,uid:Int, randomize:Boolean, reverse:Boolean): Intent {
             val intent = Intent(context,StartCardsActivity::class.java)
             intent.putExtra(EXTRA_SETCARD_ID, uid)
+            intent.putExtra(EXTRA_SETCARD_RANDOMIZE, randomize)
+            intent.putExtra(EXTRA_SETCARD_REVERSE, reverse)
             return intent
         }
     }
@@ -43,7 +49,10 @@ class StartCardsActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.d(TAG,"OnCreate")
         setContentView(R.layout.activity_start_cards)
+        //Get the Intent extras
         val setCard_ID = intent.getIntExtra(StartCardsActivity.EXTRA_SETCARD_ID,-1)
+        val setCard_randomize = intent.getBooleanExtra(StartCardsActivity.EXTRA_SETCARD_RANDOMIZE, false)
+        setCard_reverse = intent.getBooleanExtra(EXTRA_SETCARD_REVERSE,false)
         setTitle("Flash cards")
         flashcardsStart = ArrayList<FlashCard>()
 
@@ -54,7 +63,11 @@ class StartCardsActivity:AppCompatActivity() {
 
 
         SingleFromCallable{
-            MyApp.dataBase.flashCardDao().getAllStart(setCard_ID)
+            if (setCard_randomize) {
+                MyApp.dataBase.flashCardDao().getAllStartRandom(setCard_ID)
+            } else {
+                MyApp.dataBase.flashCardDao().getAllStart(setCard_ID)
+            }
         }.subscribeOn(Schedulers.io())
                 .subscribeBy(
                         onSuccess = { flashcards ->
@@ -63,7 +76,7 @@ class StartCardsActivity:AppCompatActivity() {
                     flashcardsStart.addAll(flashcards)
                     Log.d(TAG, "Query run againThe count of flashcards is: " + flashcardsStart.size)
                     pageAdaper = FlashCardPageAdapter(fm,flashcardsStart)
-                  viewPager.adapter = pageAdaper
+                    viewPager.adapter = pageAdaper
                         },
                         onError = {error ->
                             Log.e(TAG, "Flashcards not found.", error)
@@ -77,7 +90,7 @@ class StartCardsActivity:AppCompatActivity() {
         }
 
         override fun getItem(position: Int): Fragment {
-            return StartCardsFragment.newInstance(flashcardsStart[position].uid, position, count)
+            return StartCardsFragment.newInstance(flashcardsStart[position].uid, position, count, setCard_reverse)
         }
     }
 }

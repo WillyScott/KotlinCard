@@ -22,14 +22,24 @@ public interface FlashCardDao {
     @Query("SELECT * FROM flashcard WHERE set_uid = :id AND show = 1")
     public Flowable<List<FlashCard>> getAllStartFlowable(Integer id);
 
+    @Query("SELECT * FROM flashcard WHERE set_uid = :id")
+    public List<FlashCard> getAllNotFlowable(Integer id);
+
     @Query("SELECT * FROM flashcard WHERE set_uid = :id AND show = 1")
     public List<FlashCard> getAllStart(Integer id);
+
+    //Flashcards sorted by randomize
+    @Query("SELECT * FROM flashcard WHERE set_uid = :id AND show = 1 ORDER BY random_num")
+    public List<FlashCard> getAllStartRandom(Integer id);
 
     @Query("SELECT * FROM flashcard WHERE uid = :id")
     public FlashCard get(Integer id);
 
     @Query("Update flashcard set show = 1 WHERE set_uid = :id")
     public int updateShowCardTrue(Integer id);
+
+    @Query("SELECT COUNT(show) FROM flashcard WHERE set_uid = :id AND show = 1")
+    public int countShowCardTrue(Integer id);
 
     @Insert
     public long insert(FlashCard flashcard);
