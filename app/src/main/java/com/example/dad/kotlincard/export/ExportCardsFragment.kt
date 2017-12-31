@@ -14,6 +14,7 @@ import com.example.dad.kotlincard.db.FlashCard
 import com.example.dad.kotlincard.db.MyApp
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.internal.operators.single.SingleFromCallable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -28,6 +29,8 @@ class ExportCardsFragment:Fragment() {
     private var setcard_id = -1
     private lateinit var flashcards:ArrayList<FlashCard>
     private final val DIALOG_CLIPBOARD = "DialogClipBoard"
+    private var jsonString = ""
+    private var csvString = ""
 
     companion object {
         private final val SETCARD_ID = "setcard_id"
@@ -74,17 +77,17 @@ class ExportCardsFragment:Fragment() {
         }
 
         Log.d(TAG,"is TextViewSelectable:" +  textView.isTextSelectable)
-        textView.setText("Export to be here")
+        textView.setText("Export Loading")
         jsoncsvFromQuery()
+
         return view
     }
 
     fun jsoncsvFromQuery(){
-
-
         Single.fromCallable {
             MyApp.dataBase.flashCardDao().getAllNotFlowable(setcard_id)
         }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                         onSuccess = { flashcardsDB->
                             flashcards.clear()
@@ -92,10 +95,9 @@ class ExportCardsFragment:Fragment() {
                             // If there are cards convert to json and csv
                             if (flashcards.size > 0) {
 
-                                var stringTemp = arrayListtoJSON()
-                                textView.setText(stringTemp)
-
-
+                                jsonString = arrayListtoJSON()
+                                csvString = arrayListtoCSV()
+                                textView.setText(jsonString)
                             }
 
                         },
@@ -108,17 +110,26 @@ class ExportCardsFragment:Fragment() {
     fun arrayListtoJSON():String {
         var stringOut = ""
         for( i in 0.. flashcards.size -1) {
-            val stringFront = flashcards[i].frontcard
-            val stringBack = flashcards[i].backcard
-           // stringFront = stringFront.replace("\"","\"")
+            var stringFront = flashcards[i].frontcard
+            var stringBack = flashcards[i].backcard
 
+            //replace " with \"
+            //replace newline with \n
+            // JSON validate at https://jsonlint.com/
+            stringFront = stringFront.replace("\"","\\\"")
+            stringBack = stringBack.replace("\"","\\\"")
+            stringFront = stringFront.replace("\n","\\n")
+            stringBack = stringBack.replace("\n","\\n")
+
+           // stringFront = stringFront.replace("(\\r|\\n|\\r\\n)+", "\\\n")
+            //stringBack = stringBack.replace("(\\r|\\n|\\r\\n)+", "\\\n")
             if( i == flashcards.size - 1) {
                 stringOut = stringOut + "{\n" + "    \"front\": " + "\"" + stringFront + "\",\n"
-                stringOut = stringOut + "    \"back\": " + "\"" + stringFront + "\"\n" + "}\n"
+                stringOut = stringOut + "    \"back\": " + "\"" + stringBack + "\"\n" + "}\n"
             } else {
 
                 stringOut = stringOut + "{\n" + "    \"front\": " + "\"" + stringFront + "\",\n"
-                stringOut = stringOut  + "    \"back\": " + "\"" + stringFront + "\"\n" + "},\n"
+                stringOut = stringOut  + "    \"back\": " + "\"" + stringBack + "\"\n" + "},\n"
             }
         }
         var frontJson = "{ \"cards\": [\n"
@@ -128,11 +139,26 @@ class ExportCardsFragment:Fragment() {
 
         Log.d(TAG, "the string is \n" + stringOut)
         return stringOut
-
     }
 
-    fun arrayListtoCSV() {
+    fun arrayListtoCSV():String {
+        for( i in 0.. flashcards.size -1) {
+            val stringFront = flashcards[i].frontcard
+            val stringBack = flashcards[i].backcard
+            // stringFront = stringFront.replace("\"","\"")
+
+//            if( i == flashcards.size - 1) {
+//                stringOut = stringOut + "{\n" + "    \"front\": " + "\"" + stringFront + "\",\n"
+//                stringOut = stringOut + "    \"back\": " + "\"" + stringFront + "\"\n" + "}\n"
+//            } else {
+//
+//                stringOut = stringOut + "{\n" + "    \"front\": " + "\"" + stringFront + "\",\n"
+//                stringOut = stringOut  + "    \"back\": " + "\"" + stringFront + "\"\n" + "},\n"
+//            }
+        }
 
 
+
+        return ""
     }
 }

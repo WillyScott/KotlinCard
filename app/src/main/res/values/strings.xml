@@ -4,7 +4,7 @@
     <string name="card_front">Card Front</string>
     <string name="card_back">Card Back</string>
     <string name="set_name_display">Name:</string>
-    <string name="new_set">Set: </string>
+    <string name="new_set">New Set</string>
     <string name="set_section_display">Section:</string>
     <string name="url_swift_keywords">"https://raw.githubusercontent.com/WillyScott/AndroidProgramming3rd/master/ap7.json"</string>
     <string name="card_count_display">Count:</string>
