@@ -25,9 +25,9 @@ import io.reactivex.schedulers.Schedulers
 class ExportCardsFragment:Fragment() {
 
     private final val TAG = "ExportCardsFragment"
-    private lateinit var textView:TextView
+    private lateinit var textView: TextView
     private var setcard_id = -1
-    private lateinit var flashcards:ArrayList<FlashCard>
+    private lateinit var flashcards: ArrayList<FlashCard>
     private final val DIALOG_CLIPBOARD = "DialogClipBoard"
     private var jsonString = ""
     private var csvString = ""
@@ -35,18 +35,30 @@ class ExportCardsFragment:Fragment() {
     companion object {
         private final val SETCARD_ID = "setcard_id"
 
-        fun newInstance(uid:Int):Fragment {
+        fun newInstance(uid: Int): Fragment {
             var args = Bundle()
             args.putInt(SETCARD_ID, uid)
             var fragment = ExportCardsFragment()
             fragment.arguments = args
             return fragment
-         }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater!!.inflate(R.menu.fragment_exportcards,menu)
+        inflater!!.inflate(R.menu.fragment_exportcards, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if (item?.itemId == R.id.filetypejson) {
+            textView.setText(jsonString)
+            return true
+        }else if (item?.itemId == R.id.filetypecvs){
+            textView.setText(csvString)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,36 +72,36 @@ class ExportCardsFragment:Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view = inflater!!.inflate(R.layout.fragment_exportcards,container,false)
+        var view = inflater!!.inflate(R.layout.fragment_exportcards, container, false)
         textView = view.findViewById<TextView>(R.id.textViewExport)
         textView.movementMethod = ScrollingMovementMethod()
         textView.setTextIsSelectable(true)
-        textView.setOnClickListener{ v ->
-            Log.d(TAG,"Textview clicked")
+        textView.setOnClickListener { v ->
+            Log.d(TAG, "Textview clicked")
 //            val t: android.text.ClipboardManager
 //            get() = getSystemService(Context.CLIPBOARD_SERVICE) as android.text.ClipboardManager
-            var cm:ClipboardManager
+            var cm: ClipboardManager
             cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-            val cData = ClipData.newPlainText("text",textView.text)
+            val cData = ClipData.newPlainText("text", textView.text)
             cm.primaryClip = cData
             val dialog = AlertClipBoardFragment()
-            dialog.show(fragmentManager,DIALOG_CLIPBOARD)
+            dialog.show(fragmentManager, DIALOG_CLIPBOARD)
         }
 
-        Log.d(TAG,"is TextViewSelectable:" +  textView.isTextSelectable)
+        Log.d(TAG, "is TextViewSelectable:" + textView.isTextSelectable)
         textView.setText("Export Loading")
         jsoncsvFromQuery()
 
         return view
     }
 
-    fun jsoncsvFromQuery(){
+    fun jsoncsvFromQuery() {
         Single.fromCallable {
             MyApp.dataBase.flashCardDao().getAllNotFlowable(setcard_id)
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                        onSuccess = { flashcardsDB->
+                .subscribeBy(
+                        onSuccess = { flashcardsDB ->
                             flashcards.clear()
                             flashcards.addAll(flashcardsDB)
                             // If there are cards convert to json and csv
@@ -97,9 +109,11 @@ class ExportCardsFragment:Fragment() {
 
                                 jsonString = arrayListtoJSON()
                                 csvString = arrayListtoCSV()
+                                Log.d(TAG, "the csv string is: " + csvString)
+
+                                //textView.setText(jsonString)
                                 textView.setText(jsonString)
                             }
-
                         },
                         onError = { error ->
                             Log.e(TAG, "Error getting data: " + error)
@@ -107,58 +121,58 @@ class ExportCardsFragment:Fragment() {
                 )
     }
 
-    fun arrayListtoJSON():String {
+    fun arrayListtoJSON(): String {
         var stringOut = ""
-        for( i in 0.. flashcards.size -1) {
+        for (i in 0..flashcards.size - 1) {
             var stringFront = flashcards[i].frontcard
             var stringBack = flashcards[i].backcard
 
             //replace " with \"
             //replace newline with \n
+            //replace carriage
             // JSON validate at https://jsonlint.com/
-            stringFront = stringFront.replace("\"","\\\"")
-            stringBack = stringBack.replace("\"","\\\"")
-            stringFront = stringFront.replace("\n","\\n")
-            stringBack = stringBack.replace("\n","\\n")
+            stringFront = stringFront.replace("\"", "\\\"")
+            stringBack = stringBack.replace("\"", "\\\"")
+            stringFront = stringFront.replace("\n", "\\n")
+            stringBack = stringBack.replace("\n", "\\n")
 
-           // stringFront = stringFront.replace("(\\r|\\n|\\r\\n)+", "\\\n")
+            // stringFront = stringFront.replace("(\\r|\\n|\\r\\n)+", "\\\n")
             //stringBack = stringBack.replace("(\\r|\\n|\\r\\n)+", "\\\n")
-            if( i == flashcards.size - 1) {
+            if (i == flashcards.size - 1) {
                 stringOut = stringOut + "{\n" + "    \"front\": " + "\"" + stringFront + "\",\n"
                 stringOut = stringOut + "    \"back\": " + "\"" + stringBack + "\"\n" + "}\n"
             } else {
 
                 stringOut = stringOut + "{\n" + "    \"front\": " + "\"" + stringFront + "\",\n"
-                stringOut = stringOut  + "    \"back\": " + "\"" + stringBack + "\"\n" + "},\n"
+                stringOut = stringOut + "    \"back\": " + "\"" + stringBack + "\"\n" + "},\n"
             }
         }
         var frontJson = "{ \"cards\": [\n"
         var backJson = "]\n" + "}"
-
         stringOut = frontJson + stringOut + backJson
-
-        Log.d(TAG, "the string is \n" + stringOut)
         return stringOut
     }
 
-    fun arrayListtoCSV():String {
-        for( i in 0.. flashcards.size -1) {
-            val stringFront = flashcards[i].frontcard
-            val stringBack = flashcards[i].backcard
-            // stringFront = stringFront.replace("\"","\"")
+    fun arrayListtoCSV(): String {
+        var stringOut = ""
 
-//            if( i == flashcards.size - 1) {
-//                stringOut = stringOut + "{\n" + "    \"front\": " + "\"" + stringFront + "\",\n"
-//                stringOut = stringOut + "    \"back\": " + "\"" + stringFront + "\"\n" + "}\n"
-//            } else {
-//
-//                stringOut = stringOut + "{\n" + "    \"front\": " + "\"" + stringFront + "\",\n"
-//                stringOut = stringOut  + "    \"back\": " + "\"" + stringFront + "\"\n" + "},\n"
-//            }
-        }
+        for (i in 0..flashcards.size - 1) {
+            var stringFront = flashcards[i].frontcard
+            var stringBack = flashcards[i].backcard
 
+            //replace " with \"
+            //replace newline with \n
+            //replace carriage
+            //replace , with \,
+            stringFront = stringFront.replace("\"", "\\\"")
+            stringBack = stringBack.replace("\"", "\\\"")
+            stringFront = stringFront.replace("\n", "\\n")
+            stringBack = stringBack.replace("\n", "\\n")
+            stringFront = stringFront.replace(",", "\\,")
+            stringBack = stringBack.replace("\n", "\\,")
 
-
-        return ""
+            stringOut = stringOut + "\"" +  stringFront + "\",\"" + stringBack + "\"\n"
+    }
+        return stringOut
     }
 }
