@@ -211,7 +211,8 @@ class SetCardFragment: Fragment() {
             setDescription.setText(setCard.description)
             setSection.setText(setCard.section)
             //Log.d(TAG,"card count is " + setCard.count)
-            setCount.setText(set.count.toString())
+
+            setCount.setText(set.countShow.toString() +"/" + set.count.toString())
         }
 
         override fun onClick(p0: View) {

@@ -33,8 +33,8 @@ public class SetCard {
     @ColumnInfo()
     public Integer count = 0;
 
-//    @ColumnInfo
-//    public Integer countShow = 0;
+    @ColumnInfo
+    public Integer countShow = 0;
 
     public SetCard (String name, String section, String description, String urlString, Boolean randomize, Boolean reverse) {
         this.name = name;
@@ -101,13 +101,13 @@ public class SetCard {
         this.count = count;
     }
 
-//    public Integer getCountShow() {
-//        return countShow;
-//    }
-//
-//    public void setCountShow(Integer countShow) {
-//        this.countShow = countShow;
-//    }
+    public Integer getCountShow() {
+        return countShow;
+    }
+
+    public void setCountShow(Integer countShow) {
+        this.countShow = countShow;
+    }
 
 
 }

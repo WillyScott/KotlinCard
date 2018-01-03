@@ -163,6 +163,7 @@ class FlashCardFragment :Fragment() {
                         cardRecyclerView.adapter = cardAdapter
                         cardAdapter.notifyDataSetChanged()
                         updateSetCard(setCard)
+                      //  updateSetCardCountShow(setCard)
                   }
     }
 
@@ -180,10 +181,19 @@ class FlashCardFragment :Fragment() {
                 )
     }
 
+    // fun that updates the count of cards in the set and the count
+    // of cards that are marked as known (cardShow)
     fun updateSetCard (setCard: SetCard) {
         Single.fromCallable {
             setCard.setCount(cardArrayList.size)
-            Log.d(TAG, "the count is " + setCard.count)
+            //loop list and count marked to not show
+            var numCardsNotshow = 0
+            for(i in 0 .. cardArrayList.size -1){
+                if (cardArrayList[i].show == false ){
+                    numCardsNotshow = numCardsNotshow + 1
+                }
+             }
+            setCard.setCountShow(numCardsNotshow)
             MyApp.dataBase.setCardDao().update(setCard)
         }.subscribeOn(Schedulers.io())
          .subscribeBy(
@@ -195,6 +205,7 @@ class FlashCardFragment :Fragment() {
                         }
                 )
     }
+
 
     // Function that  import the cards from a URL (in a JSON format) off the main thread
     fun importCards()  {

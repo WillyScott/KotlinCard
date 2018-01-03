@@ -15,6 +15,6 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         dataBase = AppDataBase.getINSTANCE(this);
-        Log.d(TAG,"onCreate()");
+        //Log.d(TAG,"onCreate()");
     }
 }
