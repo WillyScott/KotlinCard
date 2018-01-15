@@ -1,6 +1,7 @@
 package com.example.dad.kotlincard.setcard
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -43,9 +44,7 @@ class SetCardFragment: Fragment() {
         GONE,
         RIGHT_VISIBLE,
         LEFT_VISIBLE
-
     }
-
 
     companion object {
        // private final val ARG_SETCARD_ID = "set_uid"
@@ -57,6 +56,7 @@ class SetCardFragment: Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         setArrayList = ArrayList<SetCard>()
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,6 +113,11 @@ class SetCardFragment: Fragment() {
             Log.d(TAG, "New set menu item pressed")
             //addSet()
             val intent = NewSetCardActivity.newIntent(context)
+            startActivity(intent)
+        }else if (item?.itemId == R.id.app_help) {
+            Log.d(TAG, "Help menu item pressed")
+            //Start activity to display help information
+            val intent = Intent(context, HelpActivity::class.java)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)

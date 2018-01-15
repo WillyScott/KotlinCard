@@ -23,11 +23,9 @@ class CardFetcher() {
     private fun getUrlString(urlString: String):String {
         //  https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/git.json
 
-        //var url = URL("https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json")
+
         var url = URL(urlString)
         var connection = url.openConnection() as HttpURLConnection
-
-
         try {
             var out: ByteArrayOutputStream = ByteArrayOutputStream()
             var code = connection.responseCode
@@ -56,49 +54,43 @@ class CardFetcher() {
         return "error"
     }
 
-    private fun getURlBytes (urlString: String) {
-
-        var url = URL("https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json")
-        var connection = url.openConnection() as HttpURLConnection
-
-        try {
-            var out: ByteArrayOutputStream = ByteArrayOutputStream()
-            var code = connection.responseCode
-            if (code!= HttpURLConnection.HTTP_OK) {
-                throw  IOException(connection.responseMessage + ": with "+ urlString)
-            }
-
-            val inputStream: InputStream = connection.inputStream
-            val isReader:InputStreamReader = InputStreamReader(inputStream)
-            val buffReader = BufferedReader(isReader,1024)
-            var bytesRead:Int = 0
-
-        }catch (e: Exception) {
-            Log.d(TAG,"Exception: " + e)
-
-        } finally {
-            connection.disconnect()
-        }
-
-
-
-    }
+//    private fun getURlBytes (urlString: String) {
+//
+//        var url = URL("https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json")
+//        var connection = url.openConnection() as HttpURLConnection
+//
+//        try {
+//            var out: ByteArrayOutputStream = ByteArrayOutputStream()
+//            var code = connection.responseCode
+//            if (code!= HttpURLConnection.HTTP_OK) {
+//                throw  IOException(connection.responseMessage + ": with "+ urlString)
+//            }
+//
+//            val inputStream: InputStream = connection.inputStream
+//            val isReader:InputStreamReader = InputStreamReader(inputStream)
+//            val buffReader = BufferedReader(isReader,1024)
+//            var bytesRead:Int = 0
+//
+//        }catch (e: Exception) {
+//            Log.d(TAG,"Exception: " + e)
+//
+//        } finally {
+//            connection.disconnect()
+//        }
+//    }
 
     public fun getJson(urlS : String):String {
-
         val jsonString = getUrlString(urlS)
-
-
         return jsonString
     }
 
-    private fun parseItems(cards: ArrayList<FlashCard>, jsonString: String)  {
+    public fun parseItems( jsonString: String): ArrayList<FlashCard>  {
          //Get JSON into cards
         //val turnsType = object : TypeToken<List<Turns>>() {}.type
         //val turns = Gson().fromJson<List<Turns>>(pref.turns, turnsType)
 
         var cardItemType: Type = object : TypeToken<kotlin.collections.ArrayList<FlashCard>>() {}.type
-
+        var cards = ArrayList<FlashCard>()
 
         var gson = Gson()
         try {
@@ -111,21 +103,17 @@ class CardFetcher() {
         } catch (e: JSONException) {
             Log.e(TAG, "Failed to parse JSON: " + e)
         }
-
+        return cards
     }
 
     public fun fetchCards(url:String):ArrayList<FlashCard> {
         var cards = ArrayList<FlashCard>()
         var jsonString = getUrlString(url)
-        parseItems(cards, jsonString)
+        cards = parseItems( jsonString)
         // loop cards set show to true
         for( i in 0 .. cards.size -1){
             cards[i].show = true
         }
         return cards
-
     }
-
-
-
 }

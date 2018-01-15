@@ -4,19 +4,19 @@
 
     <item
         android:id="@+id/start"
-        android:icon="@drawable/ic_action_name"
+        android:icon="@drawable/ic_menu_help"
         android:title="Start"
         />
 
     <item
         android:id="@+id/resettrue"
-        android:icon="@drawable/ic_action_name"
+        android:icon="@drawable/ic_menu_help"
         android:title="ReSetTrue"
         />
 
     <item
         android:id="@+id/importdata"
-        android:icon="@drawable/ic_action_name"
+        android:icon="@drawable/ic_menu_help"
         android:title="Import"
         />
 

@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/app_help"
+        android:title="@string/app_help"
+        android:icon="@drawable/ic_menu_help"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/new_set"
         android:title="@string/new_set"
         android:icon="@drawable/ic_menu_add"

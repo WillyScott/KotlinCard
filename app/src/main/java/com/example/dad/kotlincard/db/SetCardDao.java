@@ -25,6 +25,9 @@ public interface SetCardDao {
     @Query("SELECT * FROM setcard WHERE uid = :id")
     public SetCard getSet(Integer id);
 
+    @Query("SELECT * FROM setcard WHERE name = :nameID")
+    public SetCard getSetUniqueName(String nameID);
+
     @Insert
     public long insert(SetCard setCard);
 

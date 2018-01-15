@@ -30,4 +30,38 @@
     <string name="filecvs">CVS</string>
     <string name="filejson">JSON</string>
     <string name="alertclipboard">Copied to clipboard</string>
-    </resources>
+    <string name="app_help">Help</string>
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="app_help_text">KotlinCard Help:\n
+\n
+Support site: https://swiftcard.wordpress.com\n
+Support site with flashcard data to download:\n
+\n
+    https://github.com/WillyScott/FlashCardsData\n
+    https://github.com/WillyScott/AndroidProgramming3rd\n
+    https://github.com/WillyScott/FlashCardsKotlin\n
+ \n
+ To get a URL to download navigate to one of the directories\n
+ and select it.  Determine what flashcard data you want to\n
+ load and select the data and then the raw button above it.\n
+ Below is a example of a URL that can be loaded.  Copy\n
+ the URL in your browsers URL field to the Set card URL field.\n
+\n
+   https://github.com/WillyScott/AndroidProgramming3rd/blob/master/ap7.json\n
+\n
+\n
+About:\n
+\n
+KotlinCard is a simple flashcard app to learn Googles\n
+new programming language Kotlin.  Flashcards of all subjects\n
+can be created and loaded.  Very large data sets can\n
+be uploaded quickly.  The application is free to use and\n
+doesn\'t require the user to sign in.\n
+\n
+Using:\n
+\n
+KotlinCards comes with 2 default sets of flashcards,\n
+\"Introduction to the application\“ and \“Kotlin Keywords\”.\n
+The \"Kotlin Keywords\" is not complete.\n
+Review the introduction to learn how to navigate the application.</string>
+</resources>

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="text_size_cards">20dp</dimen>
     <dimen name="text_size_pageknowit">15dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
