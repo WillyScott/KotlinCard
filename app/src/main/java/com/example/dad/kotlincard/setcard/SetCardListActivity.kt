@@ -97,6 +97,7 @@ class SetCardListActivity: SingleFragmentActivity() {
             //update the flashcards to the set id
             for (i in 0..flashcards.size - 1) {
                 flashcards[i].set_uid = setDatabase.uid
+                flashcards[i].show = true
             }
             //insert the flashcards
             MyApp.dataBase.flashCardDao().insertAll(flashcards)

@@ -61,6 +61,9 @@ class StartCardsFragment:Fragment() {
         card_id = arguments.getInt(ARG_CARD_ID)
         position = arguments.getInt(ARG_POSITION)
         count = arguments.getInt(ARG_COUNT)
+        Log.d(TAG, "card_id: " + card_id)
+        Log.d(TAG, "position: "+ position)
+        Log.d(TAG, "count: " + count)
         reverseFrontBack = arguments.getBoolean(ARG_REVERSE)
 
       //  Log.d(TAG, "The flashcard ID is: " + card_id)

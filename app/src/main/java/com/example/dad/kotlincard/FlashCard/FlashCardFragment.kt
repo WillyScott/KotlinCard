@@ -129,6 +129,7 @@ class FlashCardFragment :Fragment() {
             when(item.itemId) {
                 R.id.start -> {
                     Log.d(TAG, "start selected")
+                    Log.d(TAG, "setCard id is:" + setCard.uid)
                     var intent = StartCardsActivity.newIntent(context,setCard.uid,setCard.randomize, setCard.reverse)
                     startActivity(intent)
                 }
@@ -281,7 +282,7 @@ class FlashCardFragment :Fragment() {
                 )
     }
 
-    // Why internal?
+    // TODO: Why internal class ?
     internal inner class CardHolder (v: View) :RecyclerView.ViewHolder(v) {
         private var cardBack: TextView
         private var cardFront: TextView

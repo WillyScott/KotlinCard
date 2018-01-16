@@ -13,11 +13,15 @@ import com.example.dad.kotlincard.R
 import com.example.dad.kotlincard.SingleFragmentActivity
 import com.example.dad.kotlincard.db.FlashCard
 import com.example.dad.kotlincard.db.MyApp
+import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.internal.operators.single.SingleFromCallable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 /**
  * Created by Dad on 12/7/2017.
@@ -62,27 +66,79 @@ class StartCardsActivity:AppCompatActivity() {
         //query the database for the flashcards from the set
 
 
-        SingleFromCallable{
+//        Single.fromCallable{
+//            if (setCard_randomize) {
+//                MyApp.dataBase.flashCardDao().getAllStartRandom(setCard_ID)
+//                Log.d(TAG, "getAllStartRandom")
+//                Log.d(TAG,"setCard_ID is: " + setCard_ID)
+//            } else {
+//                MyApp.dataBase.flashCardDao().getAllStart(setCard_ID)
+//                Log.d(TAG, "getAllStart")
+//                Log.d(TAG,"setCard_ID is: " + setCard_ID)
+//            }
+//        }.subscribeOn(Schedulers.io())
+//                .subscribeBy(
+//                        onSuccess = { flashcards ->
+//                            Log.d(TAG, "Flashcard found.")
+//                    flashcardsStart.clear()
+//                    flashcardsStart.addAll(flashcards)
+//                    Log.d(TAG, "Query run againThe count of flashcards is: " + flashcardsStart.size)
+//                    pageAdaper = FlashCardPageAdapter(fm,flashcardsStart)
+//                    viewPager.adapter = pageAdaper
+//                        },
+//                        onError = {error ->
+//                            Log.e(TAG, "Flashcards not found.", error)
+//                        }
+//                )
+
+//        Observable.fromCallable {
+//            if (setCard_randomize) {
+//                MyApp.dataBase.flashCardDao().getAllStartRandom(setCard_ID)
+//                Log.d(TAG, "getAllStartRandom")
+//                Log.d(TAG,"setCard_ID is: " + setCard_ID)
+//            } else {
+//                MyApp.dataBase.flashCardDao().getAllStart(setCard_ID)
+//                Log.d(TAG, "getAllStart")
+//                Log.d(TAG,"setCard_ID is: " + setCard_ID)
+//            }
+//        }
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeBy(
+//
+//
+//
+//
+//                )
+
+        doAsync {
+
             if (setCard_randomize) {
-                MyApp.dataBase.flashCardDao().getAllStartRandom(setCard_ID)
+                var flashcards = MyApp.dataBase.flashCardDao().getAllStartRandom(setCard_ID)
+                //var flashcards = MyApp.dataBase.flashCardDao().getAllNotFlowable(setCard_ID)
+                flashcardsStart.clear()
+                flashcardsStart.addAll(flashcards)
+                Log.d(TAG, "getAllStartRandom")
+                Log.d(TAG,"setCard_ID is: " + setCard_ID)
             } else {
-                MyApp.dataBase.flashCardDao().getAllStart(setCard_ID)
+                var flashcards = MyApp.dataBase.flashCardDao().getAllStart(setCard_ID)
+               // var flashcards = MyApp.dataBase.flashCardDao().getAllNotFlowable(setCard_ID)
+                flashcardsStart.clear()
+                flashcardsStart.addAll(flashcards)
+                Log.d(TAG, "getAllStart")
+                Log.d(TAG,"setCard_ID is: " + setCard_ID)
             }
-        }.subscribeOn(Schedulers.io())
-                .subscribeBy(
-                        onSuccess = { flashcards ->
-                            Log.d(TAG, "Flashcard found.")
-                    flashcardsStart.clear()
-                    flashcardsStart.addAll(flashcards)
+
+            uiThread {
                     Log.d(TAG, "Query run againThe count of flashcards is: " + flashcardsStart.size)
                     pageAdaper = FlashCardPageAdapter(fm,flashcardsStart)
                     viewPager.adapter = pageAdaper
-                        },
-                        onError = {error ->
-                            Log.e(TAG, "Flashcards not found.", error)
-                        }
-                )
+            }
+        }
+
     }
+
+
 
     internal inner class FlashCardPageAdapter( fragmentManager: FragmentManager, flashcards: ArrayList<FlashCard>):FragmentStatePagerAdapter(fragmentManager) {
         override fun getCount(): Int {
