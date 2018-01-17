@@ -25,9 +25,6 @@ import java.util.*
 class SetCardListActivity: SingleFragmentActivity() {
 
     private final val TAG = "SetCardListActivity"
-    //private final var KOTLIN_CARDS = "file://introductionKotlinCard.json"
-    // private final var FILE_HANDLE = "file://"
-
 
     companion object {
         fun newIntent(context: Context): Intent {
