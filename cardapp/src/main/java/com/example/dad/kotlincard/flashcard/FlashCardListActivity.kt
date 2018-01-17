@@ -1,4 +1,4 @@
-package com.example.dad.kotlincard.FlashCard
+package com.example.dad.kotlincard.flashcard
 
 import android.content.Context
 import android.content.Intent

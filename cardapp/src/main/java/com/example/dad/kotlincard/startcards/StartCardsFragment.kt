@@ -108,7 +108,7 @@ class StartCardsFragment:Fragment() {
         })
 
 
-        // query database for FlashCard
+        // query database for flashcard
        Single.fromCallable {
            MyApp.dataBase.flashCardDao().get(card_id)
        }       .subscribeOn(Schedulers.io())
@@ -239,7 +239,7 @@ class StartCardsFragment:Fragment() {
         SingleFromCallable {
             //update the flashcard from database to current values, the only value changing is the "Know-it" or  show field on flashcards.
 
-            // var flashcard = FlashCard(frontTextView.text.toString(), backTextView.text.toString(), flash_card_id, showCheckBox.isChecked)
+            // var flashcard = flashcard(frontTextView.text.toString(), backTextView.text.toString(), flash_card_id, showCheckBox.isChecked)
             MyApp.dataBase.flashCardDao().update(flashCard)
         }       .subscribeOn(Schedulers.io())
                 .subscribeBy (

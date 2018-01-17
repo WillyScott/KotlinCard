@@ -22,12 +22,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".setcard.SetCardListActivity"></activity>
-        <activity android:name=".FlashCard.FlashCardListActivity"></activity>
+        <activity android:name=".flashcard.FlashCardListActivity"></activity>
         <activity android:name=".setcard.EditSetCardActivity"></activity>
-        <activity android:name=".FlashCard.EditFlashCardActivity"></activity>
+        <activity android:name=".flashcard.EditFlashCardActivity"></activity>
         <activity android:name=".startcards.StartCardsActivity"></activity>
         <activity android:name=".setcard.NewSetCardActivity"></activity>
-        <activity android:name=".FlashCard.NewFlashCardActivity"></activity>
+        <activity android:name=".flashcard.NewFlashCardActivity"></activity>
         <activity android:name=".export.ExportCardsActivity"></activity>
         <activity
             android:name=".setcard.HelpActivity"

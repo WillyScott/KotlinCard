@@ -1,4 +1,4 @@
-package com.example.dad.kotlincard.FlashCard
+package com.example.dad.kotlincard.flashcard
 
 import android.content.Context
 import android.content.Intent
@@ -13,7 +13,7 @@ class NewFlashCardActivity:SingleFragmentActivity() {
     final private var TAG = "NewFlashCardActivity"
 
     companion object {
-        private final val SET_CARD_ID = "com.example.dad.kotlin.FlashCard"
+        private final val SET_CARD_ID = "com.example.dad.kotlin.flashcard"
 
         fun newIntent(context: Context,uid : Int):Intent {
             var intent = Intent(context, NewFlashCardActivity::class.java)

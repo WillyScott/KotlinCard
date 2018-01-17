@@ -1,4 +1,4 @@
-package com.example.dad.kotlincard.FlashCard
+package com.example.dad.kotlincard.flashcard
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -78,7 +78,7 @@ class EditFlashCardFragment:Fragment() {
 
                         },
                         onError = { error ->
-                            Log.e(TAG, "Couldn't read FlashCard from database: " + error)
+                            Log.e(TAG, "Couldn't read flashcard from database: " + error)
                         }
                 )
     }
@@ -103,7 +103,7 @@ class EditFlashCardFragment:Fragment() {
             flashcardfromDatabase.backcard = backTextView.text.toString()
             flashcardfromDatabase.frontcard = frontTextView.text.toString()
             flashcardfromDatabase.show = showCheckBox.isChecked
-           // var flashcard = FlashCard(frontTextView.text.toString(), backTextView.text.toString(), flash_card_id, showCheckBox.isChecked)
+           // var flashcard = flashcard(frontTextView.text.toString(), backTextView.text.toString(), flash_card_id, showCheckBox.isChecked)
             MyApp.dataBase.flashCardDao().update(flashcardfromDatabase)
         }       .subscribeOn(Schedulers.io())
                 .subscribeBy (

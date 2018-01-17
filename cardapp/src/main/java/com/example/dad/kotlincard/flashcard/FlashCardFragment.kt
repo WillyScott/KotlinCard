@@ -1,7 +1,8 @@
-package com.example.dad.kotlincard.FlashCard
+package com.example.dad.kotlincard.flashcard
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -248,7 +249,7 @@ class FlashCardFragment :Fragment() {
                             Log.d(TAG, "Flashcard deleted.")
                         },
                         onError = {error ->
-                            Log.e(TAG, "Couldn't delete FlashCard.", error)
+                            Log.e(TAG, "Couldn't delete flashcard.", error)
                         }
           )
 
@@ -263,7 +264,7 @@ class FlashCardFragment :Fragment() {
                             Log.d(TAG, "Flashcard updated.")
                         },
                         onError = {error ->
-                            Log.e(TAG, "Update failed on FlashCard.", error)
+                            Log.e(TAG, "Update failed on flashcard.", error)
                         }
                 )
      }
@@ -289,9 +290,9 @@ class FlashCardFragment :Fragment() {
         private var showCard: TextView
 
         init {
-            cardFront = itemView.findViewById<TextView>(R.id.cardfront) as TextView
-            cardBack = itemView.findViewById<TextView>(R.id.cardback) as TextView
-            showCard = itemView.findViewById<TextView>(R.id.showcard) as TextView
+            cardFront = v.findViewById<TextView>(R.id.cardfront) as TextView
+            cardBack = v.findViewById<TextView>(R.id.cardback) as TextView
+            showCard = v.findViewById<TextView>(R.id.showcard) as TextView
         }
 
         fun bind(card: FlashCard) {

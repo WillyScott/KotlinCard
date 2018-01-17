@@ -1,4 +1,4 @@
-package com.example.dad.kotlincard.FlashCard
+package com.example.dad.kotlincard.flashcard
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,10 +7,8 @@ import android.view.*
 import android.widget.CheckBox
 import android.widget.TextView
 import com.example.dad.kotlincard.R
-import com.example.dad.kotlincard.SingleFragmentActivity
 import com.example.dad.kotlincard.db.FlashCard
 import com.example.dad.kotlincard.db.MyApp
-import io.reactivex.Scheduler
 import io.reactivex.internal.operators.single.SingleFromCallable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -99,10 +97,10 @@ class NewFlashCardFragment:Fragment() {
         }       .subscribeOn(Schedulers.io())
                 .subscribeBy(
                         onSuccess = { intCode ->
-                            Log.d(TAG, "FlashCard added: " + intCode)
+                            Log.d(TAG, "flashcard added: " + intCode)
                         },
                         onError = {error ->
-                            Log.e(TAG, "Couldn't write FlashCard to database", error)
+                            Log.e(TAG, "Couldn't write flashcard to database", error)
                         }
                 )
 

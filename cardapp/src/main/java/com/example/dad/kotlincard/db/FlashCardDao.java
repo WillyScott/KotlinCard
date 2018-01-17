@@ -55,7 +55,7 @@ public interface FlashCardDao {
 
 //test
 //    @Query("Update * FROM flashcard WHERE set_uid = :id and ")
-//    public int updateID(FlashCard flashCard, Integer id);
+//    public int updateID(flashcard flashCard, Integer id);
 
     @Delete
     void delete(FlashCard flashCard);

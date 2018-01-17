@@ -52,7 +52,7 @@ class SetCardListActivity: SingleFragmentActivity() {
             file = File(applicationContext.filesDir, filename)
             file.appendText("test", Charset.defaultCharset())
 
-            //var cardList = ArrayList<FlashCard>()
+            //var cardList = ArrayList<flashcard>()
             var assets: AssetManager = getAssets()
             for (i in 0..PreloadedData.fileNames.size - 1) {
 

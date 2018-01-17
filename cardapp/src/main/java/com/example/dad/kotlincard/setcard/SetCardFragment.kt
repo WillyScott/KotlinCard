@@ -11,7 +11,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import com.example.dad.kotlincard.FlashCard.FlashCardListActivity
+import com.example.dad.kotlincard.flashcard.FlashCardListActivity
 import com.example.dad.kotlincard.R
 import com.example.dad.kotlincard.SwipeController
 import com.example.dad.kotlincard.SwipeControllerActions
@@ -21,9 +21,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_set_list.*
 import java.util.*
-import kotlin.math.E
 
 /**
  * Created by Dad on 11/27/2017.

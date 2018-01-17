@@ -106,7 +106,7 @@ class EditSetCardFragment:Fragment() {
            setcardfromDatabase.reverse = reverseCheckBox.isChecked()
 
 
-           // var flashcard = FlashCard(frontTextView.text.toString(), backTextView.text.toString(), flash_card_id, showCheckBox.isChecked)
+           // var flashcard = flashcard(frontTextView.text.toString(), backTextView.text.toString(), flash_card_id, showCheckBox.isChecked)
            MyApp.dataBase.setCardDao().update(setcardfromDatabase)
        }       .subscribeOn(Schedulers.io())
                .subscribeBy (

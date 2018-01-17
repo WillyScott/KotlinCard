@@ -98,7 +98,7 @@ class NewSetCardFragment:Fragment (){
         SingleFromCallable{
             val setcard = SetCard(nameEditText.text.toString(),sectionEditText.text.toString(), descriptionEditText.text.toString(),
                     urlEditText.text.toString(), randomizeCheckBox.isChecked, reverseCheckBox.isChecked )
-            //val flashCard = FlashCard(frontTextView.text.toString(), backTextView.text.toString(), set_ID, showCheckBox.isChecked)
+            //val flashCard = flashcard(frontTextView.text.toString(), backTextView.text.toString(), set_ID, showCheckBox.isChecked)
             MyApp.dataBase.setCardDao().insert(setcard)
         }       .subscribeOn(Schedulers.io())
                 .subscribeBy(
