@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dad.kotlincard">
+    package="com.williamgromme.kotlincard">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".db.MyApp"
+        android:name="com.williamgromme.kotlincard.db.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".setcard.SplashActivity"
+            android:name="com.williamgromme.kotlincard.setcard.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,16 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".setcard.SetCardListActivity"></activity>
-        <activity android:name=".flashcard.FlashCardListActivity"></activity>
-        <activity android:name=".setcard.EditSetCardActivity"></activity>
-        <activity android:name=".flashcard.EditFlashCardActivity"></activity>
-        <activity android:name=".startcards.StartCardsActivity"></activity>
-        <activity android:name=".setcard.NewSetCardActivity"></activity>
-        <activity android:name=".flashcard.NewFlashCardActivity"></activity>
-        <activity android:name=".export.ExportCardsActivity"></activity>
+        <activity android:name="com.williamgromme.kotlincard.setcard.SetCardListActivity"></activity>
+        <activity android:name="com.williamgromme.kotlincard.flashcard.FlashCardListActivity"></activity>
+        <activity android:name="com.williamgromme.kotlincard.setcard.EditSetCardActivity"></activity>
+        <activity android:name="com.williamgromme.kotlincard.flashcard.EditFlashCardActivity"></activity>
+        <activity android:name="com.williamgromme.kotlincard.startcards.StartCardsActivity"></activity>
+        <activity android:name="com.williamgromme.kotlincard.setcard.NewSetCardActivity"></activity>
+        <activity android:name="com.williamgromme.kotlincard.flashcard.NewFlashCardActivity"></activity>
+        <activity android:name="com.williamgromme.kotlincard.export.ExportCardsActivity"></activity>
         <activity
-            android:name=".setcard.HelpActivity"
+            android:name="com.williamgromme.kotlincard.setcard.HelpActivity"
             android:label="@string/title_activity_help"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
