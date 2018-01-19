@@ -19,7 +19,7 @@ class SplashActivity:AppCompatActivity() {
         var intent = SetCardListActivity.newIntent(baseContext)
         startActivity(intent)
         finish()
-        Log.d(TAG, "onCreate")
+        //Log.d(TAG, "onCreate")
 //        var intent = Intent(this,SetCardListActivity::class.java )
 //        startActivity(intent)
 //        Log.d(TAG, "onCreate")

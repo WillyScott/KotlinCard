@@ -73,7 +73,7 @@ class SetCardFragment: Fragment() {
         var swipeControllerSet = SwipeController(object : SwipeControllerActions() {
             override fun onLeftClicked(position: Int) {
                 super.onLeftClicked(position)
-                Log.d(TAG, "Left/Edit recycler view button clicked for id:" + position)
+                //Log.d(TAG, "Left/Edit recycler view button clicked for id:" + position)
                 //Start activity
                 val intent = EditSetCardActivity.newIntent(context, setCardsArrayList[position].uid)
                 startActivity(intent)
@@ -81,7 +81,7 @@ class SetCardFragment: Fragment() {
 
             override fun onRightClicked(position: Int) {
                 super.onRightClicked(position)
-                Log.d(TAG, "Right/Delete recycler view button clicked id" + position)
+                //Log.d(TAG, "Right/Delete recycler view button clicked id" + position)
                 deleteSet(position)
             }
         })
@@ -108,12 +108,12 @@ class SetCardFragment: Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.new_set) {
-            Log.d(TAG, "New set menu item pressed")
+           // Log.d(TAG, "New set menu item pressed")
             //addSet()
             val intent = NewSetCardActivity.newIntent(context)
             startActivity(intent)
         }else if (item?.itemId == R.id.app_help) {
-            Log.d(TAG, "Help menu item pressed")
+            //Log.d(TAG, "Help menu item pressed")
             //Start activity to display help information
             val intent = Intent(context, HelpActivity::class.java)
             startActivity(intent)
@@ -129,7 +129,7 @@ class SetCardFragment: Fragment() {
             setCards ->
                     setCardsArrayList.clear()
                     setCardsArrayList.addAll(setCards)
-                    Log.d(TAG, "the size of list is: " + setCardsArrayList.size)
+                   //Log.d(TAG, "the size of list is: " + setCardsArrayList.size)
 
                     setCardAdapter = SetAdapter(setCardsArrayList,context)
                     setRecyclerView.adapter = setCardAdapter
@@ -157,15 +157,15 @@ class SetCardFragment: Fragment() {
 
     fun deleteSet(num: Int) {
         Single.fromCallable {
-            Log.d(TAG,"Deleting setid: " + setCardsArrayList[num].uid)
+           // Log.d(TAG,"Deleting setid: " + setCardsArrayList[num].uid)
             MyApp.dataBase.setCardDao().delete(setCardsArrayList[num])
         }.subscribeOn(Schedulers.io())
                 .subscribeBy(
                         onSuccess = { setcard ->
-                            Log.d(TAG, "SetCard deleted.")
+                            //Log.d(TAG, "SetCard deleted.")
                         },
                         onError = { error ->
-                            Log.e(TAG, "Couldn't delete SetCard from database", error)
+                           // Log.e(TAG, "Couldn't delete SetCard from database", error)
                         }
                 )
     }
@@ -178,12 +178,12 @@ class SetCardFragment: Fragment() {
         //private final val TAG = "RecyclerSwipeActions"
         override fun onLeftClicked(position: Int) {
             super.onLeftClicked(position)
-            Log.d(TAG, "Left/Edit recycler view button clicked for id:" + position )
+            //Log.d(TAG, "Left/Edit recycler view button clicked for id:" + position )
         }
 
         override fun onRightClicked(position: Int) {
             super.onRightClicked(position)
-            Log.d(TAG, "Right/Delete recycler view button clicked id" + position)
+            //Log.d(TAG, "Right/Delete recycler view button clicked id" + position)
         }
     }
 

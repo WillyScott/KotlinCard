@@ -75,7 +75,7 @@ class ExportCardsFragment:Fragment() {
         textView.movementMethod = ScrollingMovementMethod()
         textView.setTextIsSelectable(true)
         textView.setOnClickListener { v ->
-            Log.d(TAG, "Textview clicked")
+            //Log.d(TAG, "Textview clicked")
 //            val t: android.text.ClipboardManager
 //            get() = getSystemService(Context.CLIPBOARD_SERVICE) as android.text.ClipboardManager
             var cm: ClipboardManager
@@ -86,7 +86,7 @@ class ExportCardsFragment:Fragment() {
             dialog.show(fragmentManager, DIALOG_CLIPBOARD)
         }
 
-        Log.d(TAG, "is TextViewSelectable:" + textView.isTextSelectable)
+        //Log.d(TAG, "is TextViewSelectable:" + textView.isTextSelectable)
         textView.setText("Export Loading")
         jsoncsvFromQuery()
 
@@ -107,14 +107,14 @@ class ExportCardsFragment:Fragment() {
 
                                 jsonString = arrayListtoJSON()
                                 csvString = arrayListtoCSV()
-                                Log.d(TAG, "the csv string is: " + csvString)
+                               // Log.d(TAG, "the csv string is: " + csvString)
 
                                 //textView.setText(jsonString)
                                 textView.setText(jsonString)
                             }
                         },
-                        onError = { error ->
-                            Log.e(TAG, "Error getting data: " + error)
+                        onError = { error  ->
+                            //Log.e(TAG, "Error getting data: " + error)
                         }
                 )
     }

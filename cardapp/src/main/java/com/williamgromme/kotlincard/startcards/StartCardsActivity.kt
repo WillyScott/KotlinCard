@@ -43,7 +43,7 @@ class StartCardsActivity:AppCompatActivity() {
 
     override  protected fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG,"OnCreate")
+        //Log.d(TAG,"OnCreate")
         setContentView(R.layout.activity_start_cards)
         //Get the Intent extras
         val setCard_ID = intent.getIntExtra(StartCardsActivity.EXTRA_SETCARD_ID,-1)
@@ -110,19 +110,19 @@ class StartCardsActivity:AppCompatActivity() {
                 //var flashcards = MyApp.dataBase.flashCardDao().getAllNotFlowable(setCard_ID)
                 flashcardsStart.clear()
                 flashcardsStart.addAll(flashcards)
-                Log.d(TAG, "getAllStartRandom")
-                Log.d(TAG,"setCard_ID is: " + setCard_ID)
+               // Log.d(TAG, "getAllStartRandom")
+                //Log.d(TAG,"setCard_ID is: " + setCard_ID)
             } else {
                 var flashcards = MyApp.dataBase.flashCardDao().getAllStart(setCard_ID)
                // var flashcards = MyApp.dataBase.flashCardDao().getAllNotFlowable(setCard_ID)
                 flashcardsStart.clear()
                 flashcardsStart.addAll(flashcards)
-                Log.d(TAG, "getAllStart")
-                Log.d(TAG,"setCard_ID is: " + setCard_ID)
+                //Log.d(TAG, "getAllStart")
+                //Log.d(TAG,"setCard_ID is: " + setCard_ID)
             }
 
             uiThread {
-                    Log.d(TAG, "Query run againThe count of flashcards is: " + flashcardsStart.size)
+                    //Log.d(TAG, "Query run againThe count of flashcards is: " + flashcardsStart.size)
                     pageAdaper = FlashCardPageAdapter(fm,flashcardsStart)
                     viewPager.adapter = pageAdaper
             }

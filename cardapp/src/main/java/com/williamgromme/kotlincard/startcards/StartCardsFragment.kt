@@ -57,9 +57,9 @@ class StartCardsFragment:Fragment() {
         card_id = arguments.getInt(ARG_CARD_ID)
         position = arguments.getInt(ARG_POSITION)
         count = arguments.getInt(ARG_COUNT)
-        Log.d(TAG, "card_id: " + card_id)
-        Log.d(TAG, "position: "+ position)
-        Log.d(TAG, "count: " + count)
+        //Log.d(TAG, "card_id: " + card_id)
+        //Log.d(TAG, "position: "+ position)
+        //Log.d(TAG, "count: " + count)
         reverseFrontBack = arguments.getBoolean(ARG_REVERSE)
 
       //  Log.d(TAG, "The flashcard ID is: " + card_id)
@@ -79,14 +79,14 @@ class StartCardsFragment:Fragment() {
         view.setOnTouchListener(object : OnSwipeTouchListener(activity) {
             override fun onClick() {
                 super.onClick()
-                Log.d(TAG,"single click")
+               // Log.d(TAG,"single click")
                 //switch to the other side of card and animate the change
                 onStartAnimationtoBack()
             }
 
             override fun onSwipeUp() {
                 super.onSwipeUp()
-                Log.d(TAG, "view swipe up")
+                //Log.d(TAG, "view swipe up")
                 //set form and and show field to false
 
                 currentFlashCard.show = false
@@ -129,7 +129,7 @@ class StartCardsFragment:Fragment() {
                           page.setText((position +1).toString() + " of " + count.toString())
                        },
                        onError = {error ->
-                            Log.e(TAG, "Couldn't get the flashcard: ",error)
+                            //Log.e(TAG, "Couldn't get the flashcard: ",error)
                        }
                )
 
@@ -138,7 +138,7 @@ class StartCardsFragment:Fragment() {
 
     fun onStartAnimationtoBack () {
         //frontbackCard.setText(currentFlashCard.backcard)
-        Log.d(TAG, "onStartAnimationtoBack")
+        //Log.d(TAG, "onStartAnimationtoBack")
 //        val animatorSet = AnimatorSet()
 //        val animation = ValueAnimator.ofFloat()
 //        frameContainer.animate().rotationY(90f).setDuration(1000L).start()
@@ -240,10 +240,10 @@ class StartCardsFragment:Fragment() {
         }       .subscribeOn(Schedulers.io())
                 .subscribeBy (
                         onSuccess = {intCode ->
-                            Log.d(TAG, "Wrote flashcard to database: " + intCode)
+                           // Log.d(TAG, "Wrote flashcard to database: " + intCode)
                         },
                         onError = { error ->
-                            Log.e(TAG, "Could not update the flashcard: "+ error)
+                            //Log.e(TAG, "Could not update the flashcard: "+ error)
                         }
                 )
     }

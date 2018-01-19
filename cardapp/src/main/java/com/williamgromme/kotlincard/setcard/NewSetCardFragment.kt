@@ -70,7 +70,7 @@ class NewSetCardFragment:Fragment (){
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item!!.itemId == R.id.save) {
-            Log.d(TAG, "Save toolbar item selected: " + saveSelected)
+            //Log.d(TAG, "Save toolbar item selected: " + saveSelected)
             if (saveSelected == false) {
                 activity.invalidateOptionsMenu()
                 saveNewSetCard()
@@ -92,7 +92,7 @@ class NewSetCardFragment:Fragment (){
     }
 //
     fun saveNewSetCard() {
-        Log.d(TAG, "saveNewFlashCard()")
+        //Log.d(TAG, "saveNewFlashCard()")
         // Save the new flashcard
 
         SingleFromCallable{
@@ -103,10 +103,10 @@ class NewSetCardFragment:Fragment (){
         }       .subscribeOn(Schedulers.io())
                 .subscribeBy(
                         onSuccess = { intCode ->
-                            Log.d(TAG, "SetCard added: " + intCode)
+                            //Log.d(TAG, "SetCard added: " + intCode)
                         },
                         onError = {error ->
-                            Log.e(TAG, "Couldn't write SetCard to database", error)
+                            //Log.e(TAG, "Couldn't write SetCard to database", error)
                         }
                 )
 

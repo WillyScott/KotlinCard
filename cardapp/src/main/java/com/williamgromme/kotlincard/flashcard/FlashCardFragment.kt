@@ -57,7 +57,7 @@ class FlashCardFragment :Fragment() {
         super.onCreate(savedInstanceState)
         setCard_id = arguments.getInt(SETCARD_ID)
 
-        Log.d(TAG, "The set id is: " + setCard_id)
+        //Log.d(TAG, "The set id is: " + setCard_id)
         // get the set and cards for the set
         getSetcard(setCard_id)
         setHasOptionsMenu(true)
@@ -75,13 +75,13 @@ class FlashCardFragment :Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if  ( item?.itemId == R.id.new_card){
-            Log.d(TAG, "New Card button selected")
+            //Log.d(TAG, "New Card button selected")
             //Start Activity
             val intent = NewFlashCardActivity.newIntent(context,setCard_id)
             startActivity(intent)
             return true
         }else if (item?.itemId == R.id.exportCSV) {
-            Log.d(TAG, "Export to csv selected")
+            //Log.d(TAG, "Export to csv selected")
             val intent = ExportCardsActivity.newIntent(context,setCard_id)
             startActivity(intent)
             return true
@@ -128,18 +128,18 @@ class FlashCardFragment :Fragment() {
         bottomNavView.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.start -> {
-                    Log.d(TAG, "start selected")
-                    Log.d(TAG, "setCard id is:" + setCard.uid)
+                    //Log.d(TAG, "start selected")
+                   // Log.d(TAG, "setCard id is:" + setCard.uid)
                     var intent = StartCardsActivity.newIntent(context,setCard.uid,setCard.randomize, setCard.reverse)
                     startActivity(intent)
                 }
                 R.id.resettrue -> {
-                    Log.d(TAG, "resettrue selected")
+                    //Log.d(TAG, "resettrue selected")
                     //reset the show field to true
                     updateFlashCardtotrue()
                 }
                 R.id.importdata -> {
-                    Log.d(TAG, "importdata selected")
+                    //Log.d(TAG, "importdata selected")
                     importCards()
                 }
             }
@@ -177,7 +177,7 @@ class FlashCardFragment :Fragment() {
                             setCard = setcard
                         },
                         onError = {error ->
-                            Log.e(TAG, "Couldn't get SetCard. " + error)
+                           // Log.e(TAG, "Couldn't get SetCard. " + error)
                         }
                 )
     }
@@ -199,10 +199,10 @@ class FlashCardFragment :Fragment() {
         }.subscribeOn(Schedulers.io())
          .subscribeBy(
                         onSuccess = { num ->
-                            Log.d(TAG, "SetCard updated. " + num)
+                            //Log.d(TAG, "SetCard updated. " + num)
                         },
                         onError = {error ->
-                            Log.e(TAG, "Couldn't update SetCard.", error)
+                            //Log.e(TAG, "Couldn't update SetCard.", error)
                         }
                 )
     }
@@ -245,10 +245,10 @@ class FlashCardFragment :Fragment() {
         } .subscribeOn(Schedulers.io())
           .subscribeBy(
                         onSuccess = { setcard ->
-                            Log.d(TAG, "Flashcard deleted.")
+                            //Log.d(TAG, "Flashcard deleted.")
                         },
                         onError = {error ->
-                            Log.e(TAG, "Couldn't delete flashcard.", error)
+                            //Log.e(TAG, "Couldn't delete flashcard.", error)
                         }
           )
 
@@ -260,10 +260,10 @@ class FlashCardFragment :Fragment() {
         } .subscribeOn(Schedulers.io())
                 .subscribeBy(
                         onSuccess = {flashcard ->
-                            Log.d(TAG, "Flashcard updated.")
+                           // Log.d(TAG, "Flashcard updated.")
                         },
                         onError = {error ->
-                            Log.e(TAG, "Update failed on flashcard.", error)
+                            //Log.e(TAG, "Update failed on flashcard.", error)
                         }
                 )
      }
@@ -274,10 +274,10 @@ class FlashCardFragment :Fragment() {
         }.subscribeOn(Schedulers.io())
                 .subscribeBy(
                         onSuccess = { result ->
-                            Log.d(TAG, "Update of flashcards show field successful. " + result)
+                            //Log.d(TAG, "Update of flashcards show field successful. " + result)
                         },
                         onError = {error ->
-                            Log.e(TAG, "Update failed on flashcards show field: " + error)
+                            //Log.e(TAG, "Update failed on flashcards show field: " + error)
                         }
                 )
     }

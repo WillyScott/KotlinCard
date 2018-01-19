@@ -28,9 +28,9 @@ class CardFetcher() {
         try {
             var out: ByteArrayOutputStream = ByteArrayOutputStream()
             var code = connection.responseCode
-            Log.i(TAG, "The code is: " + code)
+            //Log.i(TAG, "The code is: " + code)
             if (code != HttpURLConnection.HTTP_OK) {
-                Log.d(TAG, "the result code: " + code)
+                //Log.d(TAG, "the result code: " + code)
                 throw IOException(connection.responseMessage + ": with " + urlString)
             }
 
@@ -44,7 +44,7 @@ class CardFetcher() {
 
         }
         catch (e: Exception ){
-            Log.d(TAG,"Exception:" +e )
+            //Log.d(TAG,"Exception:" +e )
         }
         finally {
             //Log.d(TAG,"finally")
@@ -75,7 +75,7 @@ class CardFetcher() {
             cards.addAll(cardsList)
 
         } catch (e: JSONException) {
-            Log.e(TAG, "Failed to parse JSON: " + e)
+            //Log.e(TAG, "Failed to parse JSON: " + e)
         }
         return cards
     }

@@ -44,11 +44,11 @@ class SetCardListActivity: SingleFragmentActivity() {
         var file = File(filesDir, filename)
 
         if (file.isFile) {
-            Log.d(TAG, "emptyfile found JSON data already inported from file")
+           // Log.d(TAG, "emptyfile found JSON data already inported from file")
         } else {
             //create the file
             //add some text or the empty file is delete
-            Log.d(TAG, "emptyfile not found, creating file")
+            //Log.d(TAG, "emptyfile not found, creating file")
             file = File(applicationContext.filesDir, filename)
             file.appendText("test", Charset.defaultCharset())
 
@@ -61,7 +61,7 @@ class SetCardListActivity: SingleFragmentActivity() {
                 val cards = CardFetcher().parseItems(stringJson)
                 // add cards to database
                 if (cards.size > 0) {
-                    Log.d(TAG, "loop: " + i + "Cards found:" + cards.size)
+                    //Log.d(TAG, "loop: " + i + "Cards found:" + cards.size)
                     //add the set and cards to database
                     addFlashCardsfromFile(cards, i)
                 }

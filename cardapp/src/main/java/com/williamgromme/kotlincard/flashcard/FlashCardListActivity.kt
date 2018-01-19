@@ -20,7 +20,7 @@ class FlashCardListActivity : SingleFragmentActivity() {
     }
 
     override fun createFragment(): Fragment {
-        Log.d(TAG, "createFragment()")
+        //Log.d(TAG, "createFragment()")
         var setCard_id = intent.getIntExtra(SET_CARD_ID,-1)
         return FlashCardFragment.newInstance(setCard_id)
     }
