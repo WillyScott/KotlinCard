@@ -75,7 +75,7 @@ class CardFetcher() {
             cards.addAll(cardsList)
 
         } catch (e: JSONException) {
-            //Log.e(TAG, "Failed to parse JSON: " + e)
+            Log.e(TAG, "Failed to parse JSON: " + e)
         }
         return cards
     }

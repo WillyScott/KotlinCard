@@ -23,6 +23,7 @@ import java.util.Random;
 public class FlashCard {
 
     @PrimaryKey(autoGenerate = true)
+    @Expose(serialize = false)
     public int uid;
 
     @ColumnInfo ( name = "front_card")
@@ -34,13 +35,16 @@ public class FlashCard {
     public String backcard;
 
     @ColumnInfo
+    @Expose(serialize = false)
     public int random_num;
 
     @ColumnInfo
+    @Expose(serialize = false)
     public Boolean show = true;
 
     @ColumnInfo
     @NonNull
+    @Expose(serialize = false)
     public Integer set_uid;
 
     public FlashCard( String frontcard, String backcard, Integer set_uid, Boolean show ){
