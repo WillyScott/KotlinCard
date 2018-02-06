@@ -28,7 +28,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:inputType="none"
-        android:text="TextView"/>
+        android:text="TextView"
+        />
 
     <TextView
         android:id="@+id/pagenum"
