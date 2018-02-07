@@ -1,52 +1,420 @@
 { "cards":
 [
     {
-        "front": "Welcome to Kotlincard. The first screen to show on startup is a flash screen followed by a list of any sets if they exist. Tap to see the back of this card.Swipe left to to go forward or go to the next card.",
-        "back": "If any sets exist their Name, description and count of flashcards that exist in the set will be displayed."
+        "front": "Tokens that are always interpreted as keywords and cannot be used as identifers",
+        "back": "Hard Keywords (HK)"
     },
     {
-        "front": "A flashcard set is created by pressing the \"+\" in the main screen navigation bar.",
-        "back": "Enter a name, description and section for each new set.  None of the fields need to be unique.  The \"Import URL\"defaults to the Android Programming 3rd chapter 7 (Big Nerd Ranch) on GitHub.com. The Randomize checkbox will randomize the flashcards.  The reverse checkbox will reverse the display of the front and back of the cards."
+        "front": "- Used  for type casts\n-  Specifies an alias for an inport. (HK)",
+        "back": "as"
     },
     {
-        "front": "In the new flashcard set screen the save button will persist the new set.",
-        "back": "Pressing the return button on the top left will not save the new flashcard set."
+        "front": "Used for safe type casts. (HK)",
+        "back": "as?"
     },
     {
-        "front": "In the new flashcard set screen \"import URL:\" is the location on the internet of the file to be imported.",
-        "back": "Currently only \"https\" and file type of \".json\" is supported.  The json file to be imported must be formated correctly. A example json file correctly formatted is \n   { \"cards\": [\n    {\n        \"front\": \"Gives a placeholder name to a type that is used as part of a protocol\",\n        \"back\": \"associatedtype(typealias is sometimes used to declare the concrete type, but Swifts type inference doesn't require it)\"\n    },\n    {\n        \"front\": \"General-purose, flexible construct that becomes the building blocks of a program.\",\n        \"back\": \"Class\"\n    }\n]\n}"
+        "front": "Terminates the execution of a loop. (HK)",
+        "back": "break"
     },
     {
-        "front": "A flashcard set can be edited and deleted.",
-        "back": "Swipe left on the applicable set to display a red delete button and swipe right to bring up the edit button."
+        "front": "Declares a general purpose object that is the building blocks of programs. They have constructors, inheritance. (HK)",
+        "back": "class"
     },
     {
-        "front": "Selecting the set record will bring up the card screen.This screen shows all of the flashcards in that set.",
-        "back": "The card screen has the functionality to add, edit, and delete flashcards.  The tab menu has 3 buttons.  Start, ReSet and Import"
+        "front": "Proceeds to the next step of the nearest enclosing loop. (HK)",
+        "back": "continue"
     },
     {
-        "front": "In the card screen select '+' to bring up the card add screen.  Swipe right to bring up the edit button.",
-        "back": "Front and back are required text fields and cannot be empty. The show field is defaulted to true and it determines if the card will be shown during a flashcard session."
+        "front": "Begins a loop with a postcondition. (HK)",
+        "back": "do"
     },
     {
-        "front": "Swiping left on a flashcard record on the right side will bring up the Edit/Delete buttons.",
-        "back": "Selecting Edit will bring up the selected card to be edited.  Save must be selected to persist the card edits, selecting the return arrow will not persist the changes made. Selecting Delete will delete the record."
+        "front": "Defines the branch of an if expression which is executed then the condition is false. (HK)",
+        "back": "else"
     },
     {
-        "front": "There are 3 buttons on the bottom of the tab bar.",
-        "back": "Start - starts the flash cards session, ReSet sets the show field back to True, Import - imports cards into the set if the Import field is in the Set."
+        "front": "Specifies the 'negative' value of the Boolean type. (HK)",
+        "back": "\"false\""
     },
     {
-        "front": "In card screen the right button on the top bar is a download button.",
-        "back": "Select the download buttton and a JSON textscreen will be displayed. Touching the screen will copy the JSON to the clipboard. Touching the the top button (3 verticle dots) will bring up a CSV screen.  Touching the screen will copy the CSV to the clipboard."
+        "front": "Begins a loop. (HK)",
+        "back": "for"
     },
     {
-        "front": "Select \"Start\" to start the flashcard session.  Tap the screen to see the back of the card.  After reviewing the back of the card swipe left to go to the next card.",
-        "back": "This is the back of the flash card which is a different color than the front and should be the answer of the front flashcards.  Tap the screen to return to the front card."
+        "front": "Declares a function. (HK)",
+        "back": "fun"
     },
     {
-        "front": "If the card is know swipe up to mark the card as know.  Text displaying \"Know it!\" will be displayed on the card. Swiping down will remove \"Know it.\".",
-        "back": "Cards marked \"Know it.\" will not be displayed the next time Swiftcards is played, but will remain in the current flashcard session."
+        "front": "Begins a expression. (HK)",
+        "back": "if"
+    },
+    {
+        "front": "- Specifies the object being iterated in a for loop.\n- Is used as a infix operator to check that a value belongs to a range, a collection or another entity that defines the 'contains' method.\n- Is used in when expression for the same purpose.\n- Marks a type parameter as contravariant. (HK)",
+        "back": "in"
+    },
+    {
+        "front": "- Is used as an operator to check that a value does not belong to a range, a collection or another entity that defines the 'contains' method.\n- Is used in when expression for the same purpose (HK)",
+        "back": "!in"
+    },
+    {
+        "front": "Declares an interface. (HK)",
+        "back": "interface"
+    },
+    {
+        "front": "- Checks that a value has a certain type.\n- Is used in when expressions for the same purpose. (HK)",
+        "back": "is"
+    },
+    {
+        "front": "- Checks that a value does not have a certain type.\n- Is used in when expressions for the same purpose. (HK)",
+        "back": " !is"
+    },
+    {
+        "front": "Constant representing an object reference that doesnt point to any object. (HK)",
+        "back": "null"
+    },
+    {
+        "front": "Declares a class and a instance at the same time. (HK)",
+        "back": "object"
+    },
+    {
+        "front": "Specifies the package for the current file. (HK)",
+        "back": "package"
+    },
+    {
+        "front": "Returns the nearest enclosing function or anonymous function. (HK)",
+        "back": "return"
+    },
+    {
+        "front": "- Refers to the superclass implementation fo a method or property\n- Calls the superclass constructor from a secondary constructor. (HK)",
+        "back": "super"
+    },
+    {
+        "front": "- Refers to the current receiver.\n- Calls another constructor of the same class from a secondary constructor. (HK)",
+        "back": "this"
+    },
+    {
+        "front": "Throws a  exception. (HK)",
+        "back": "throw"
+    },
+    {
+        "front": "The positive valuse of the Boolean type. (HK)",
+        "back": "\"true\""
+    },
+    {
+        "front": "Begins a exception handling block. (HK)",
+        "back": "try"
+    },
+    {
+        "front": "Delcares a type alias. (HK)",
+        "back": "typealias"
+    },
+    {
+        "front": "Declares a read-only property or local variable. (HK)",
+        "back": "val"
+    },
+    {
+        "front": "Declares a mutable property or local variable. (HK)",
+        "back": "var"
+    },
+    {
+        "front": "Begins a when expression (executes on of the given\n branches) . (HK)",
+        "back": "when"
+    },
+    {
+        "front": "Begins a while loop (loop with precondition). (HK)",
+        "back": "while"
+    },
+    {
+        "front": "Tokens that act as keywords in the context when they are applicable and can be used as identifiers in other context.",
+        "back": "Soft Keywords (SK)"
+    },
+    {
+        "front": "- Delegates the implementation of an interface to another object.\n- Delegates the implementation of accessors for a property to another object. (SK)",
+        "back": "by"
+    },
+    {
+        "front": "Begins a block that handles a specific exception type. (SK)",
+        "back": "catch"
+    },
+    {
+        "front": "Declares a primary or secondary constructor. (SK)",
+        "back": "constructor"
+    },
+    {
+        "front": "- the field storing the delegate instance for a delegated property\n- Used as an annotation use-site target",
+        "back": "delegate"
+    },
+    {
+        "front": "References a dynamic type in Kotlin/JS code. (SK)",
+        "back": "dynamic"
+    },
+    {
+        "front": "- annotate Java field(variable)\n- Used as an annotation use-site target\n- Annotations are means of attaching metadata to code. (SK)",
+        "back": "field"
+    },
+    {
+        "front": "- Used to annote a entire file.\n- Used as an annotation use-site target. (SK)",
+        "back": "file"
+    },
+    {
+        "front": "Begins a block that is always executed when a try block exits. (SK)",
+        "back": "finally"
+    },
+    {
+        "front": "- Declares the getter of a property.\n- Used as an annotation use-site target. (SK)",
+        "back": "get"
+    },
+    {
+        "front": "Imports a declaration from another package into the current file. (SK)",
+        "back": "import"
+    },
+    {
+        "front": "Begins a initializer block. (SK)",
+        "back": "init"
+    },
+    {
+        "front": "- Annote constructor parameter.\n- Used as an annotation use-site target. (SK)",
+        "back": "param"
+    },
+    {
+        "front": "- Annotations with this are not visible to Java.\n- Used as an annotation use-site target. (SK)",
+        "back": "property"
+    },
+    {
+        "front": "- Used to annote receiver parameter of an extension function or property.\n- Used as an annotation use-site target. (SK)",
+        "back": "receiver"
+    },
+    {
+        "front": "Declares the setter of a property.Used as an annontation use-site target. (SK)",
+        "back": "set"
+    },
+    {
+        "front": "- Annotate property setter parameter.\n- Used as an annotation use-site target. (SK)",
+        "back": "setparam"
+    },
+    {
+        "front": "Specifies constraints  for a generic type parameter (SK)",
+        "back": "where"
+    },
+    {
+        "front": "Tokens that act as keywords in modifier lists of declarations and can bee used as identifiers in other contexts. (SK)",
+        "back": "Modifier Keywords (MK)"
+    },
+    {
+        "front": "Denotes a platform-specific implementation in multiplatform projects. (MK)",
+        "back": "actual"
+    },
+    {
+        "front": "Marks a class or member as abstract. (MK)",
+        "back": "abstract"
+    },
+    {
+        "front": "Declares an annotation class.  (MK)",
+        "back": "annotation"
+    },
+    {
+        "front": "Declares a companion object.  (MK)",
+        "back": "companion"
+    },
+    {
+        "front": "const marks a property as a compile-time constant.  (MK)",
+        "back": "const"
+    },
+    {
+        "front": "Forbids non-local returns in a lambda passed to an inline function. (MK)",
+        "back": "crossinline"
+    },
+    {
+        "front": "Instructs the compiler to generate canonical\n members for a class.  (MK)",
+        "back": "data"
+    },
+    {
+        "front": "Declares an class that has a ordered listing of all items.",
+        "back": "enum"
+    },
+    {
+        "front": "Marks a declaration as platform-specific, expecting an implementation in platform modules.  (MK)",
+        "back": "expect"
+    },
+    {
+        "front": "Marks a declaration as implemented not in Kotlin (accessible through JNI or in JavaScript).  (MK)",
+        "back": "external"
+    },
+    {
+        "front": "Forbids overriding a member.  (MK)",
+        "back": "final"
+    },
+    {
+        "front": "Allows calling a function in infix notation.  (MK)",
+        "back": "infix"
+    },
+    {
+        "front": "Tells the compiler to inline the function and the lambdas passed to it at the call site.  (MK)",
+        "back": "inline"
+    },
+    {
+        "front": "Allows referring to the outer class instance from a nested class.  (MK)",
+        "back": "inner"
+    },
+    {
+        "front": "Marks a declaration as visible in the current module.  (MK)",
+        "back": "internal"
+    },
+    {
+        "front": "Allows initializing a non-null property outside of a constructor.  (MK)",
+        "back": "lateinit"
+    },
+    {
+        "front": "Turns off inlining of a lambda passed to an inline function",
+        "back": "noinline"
+    },
+    {
+        "front": "Allows subclassing a class or overriding a member.  (MK)",
+        "back": "open"
+    },
+    {
+        "front": "Marks a function as overloading an operator or implementing a convention",
+        "back": "operator"
+    },
+    {
+        "front": "Marks a type parameter as covariant.  (MK)",
+        "back": "out"
+    },
+    {
+        "front": "Marks a member as an override of a superclass member.  (MK)",
+        "back": "override"
+    },
+    {
+        "front": "Marks a declaration as visible in the current class or file",
+        "back": "private"
+    },
+    {
+        "front": "Marks a declaration as visible in the current class and its subclasses.  (MK)",
+        "back": "protected"
+    },
+    {
+        "front": "Marks a declaration as visible anywhere.  (MK)",
+        "back": "public"
+    },
+    {
+        "front": "Marks a type parameter of an inline function as accessible at runtime.  (MK)",
+        "back": "reified"
+    },
+    {
+        "front": "Declares a sealed class (a class with restricted subclassing).  (MK)",
+        "back": "sealed"
+    },
+    {
+        "front": "Marks a function or lambda as suspending (usable as a coroutine)",
+        "back": "suspend"
+    },
+    {
+        "front": "Marks a function as tail-recursive (allowing the compiler to replace recursion with iteration).  (MK)",
+        "back": "tailrec"
+    },
+    {
+        "front": "Allows passing a variable number of arguments for a parameter.  (MK)",
+        "back": "vararg"
+    },
+    {
+        "front": "Identifiers that are defined by the compiler in specific contexts and can be used ar regular identifiers in other contexts. (SI)",
+        "back": "Special identifiers (SI)"
+    },
+    {
+        "front": "Used inside a property accessor to refer to the backing field of the property. (SI)",
+        "back": "field"
+    },
+    {
+        "front": "Used inside a lambda to refer to its parameter implicitly. (SI)",
+        "back": "it"
+    },
+    {
+        "front": "- Symbol for expression a mathematical operation\n- Special symbol used to represent",
+        "back": "Operators and Special Symbols (OSS)"
+    },
+    {
+        "front": "Mathematical operators (OSS)",
+        "back": "\"+,-,*,/,%\"  (* is also used to pass an array to a vararg\nparameter)"
+    },
+    {
+        "front": "- Assignment operator\n- Used to specity default values for parameters. (OSS)",
+        "back": "\"=\""
+    },
+    {
+        "front": "Augmented assignment operators (OSS)",
+        "back": "\"+=, -=, *=, /=, %=\""
+    },
+    {
+        "front": "Increment and decrement operators (OSS)",
+        "back": "\"++, --\""
+    },
+    {
+        "front": "Logical 'and', 'or', 'not' operators (for bitwise operations, use corresponding infix functions). (OSS)",
+        "back": "&&, ||, !"
+    },
+    {
+        "front": "Equality operators (translated to calls of equals() for non-primitive types) (OSS)",
+        "back": "\"==, !=\""
+    },
+    {
+        "front": "Referential equality operators - evaluate (OSS)",
+        "back": "\"===, !==\""
+    },
+    {
+        "front": "Comparison operators (translated to calls\n of compareTo() for non-primitive types) (OSS)",
+        "back": "<, >, <=, >="
+    },
+    {
+        "front": "Indexed access operator (translated to\n calls of get and set) (OSS)",
+        "back": "[, ] "
+    },
+    {
+        "front": "Asserts that an expression is non-null",
+        "back": "!!"
+    },
+    {
+        "front": "Performs a safe call (calls a method or accesses a property if the receiver is non-null) (OSS)",
+        "back": "?."
+    },
+    {
+        "front": "Takes the right-hand value if the left-hand value is null (the elvis operator ) (OSS)",
+        "back": "?:"
+    },
+    {
+        "front": "Creates a member reference or a class reference (OSS)",
+        "back": "::"
+    },
+    {
+        "front": "Creates a range (OSS)",
+        "back": ".."
+    },
+    {
+        "front": "Separates a name from a type in declarations (OSS)",
+        "back": ":"
+    },
+    {
+        "front": "Marks a type as nullable (OSS)",
+        "back": "?"
+    },
+    {
+        "front": "- Separates the parameters and body of a lambda expression\n- separates the parameters and return type declaration in a\n  function type\n- separates the condition and body of a when\n  expression branch (OSS)",
+        "back": "->"
+    },
+    {
+        "front": "- Introduces an annotation\n- introduces or references a loop label\n- introduces or references a lambda label\n- references a 'this' expression from an outer scope\n- references an outer superclass (OSS)",
+        "back": "@"
+    },
+    {
+        "front": "Separates multiple statements on the same line (OSS)",
+        "back": ";"
+    },
+    {
+        "front": "References a variable or expression in a string template (OSS)",
+        "back": "$"
+    },
+    {
+        "front": "- substitutes an unused parameter in a lambda expression\n- substitutes an unused parameter in a destructuring declaration (OSS)",
+        "back": "_"
     }
 ]
 }

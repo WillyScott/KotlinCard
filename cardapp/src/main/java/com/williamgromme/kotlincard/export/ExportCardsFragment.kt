@@ -37,7 +37,7 @@ class ExportCardsFragment:Fragment() {
     private final val DIALOG_CLIPBOARD = "DialogClipBoard"
     private var jsonString = ""
     private var csvString = ""
-    private var jsonStringGson = ""
+    //private var jsonStringGson = ""
 
     companion object {
         private final val SETCARD_ID = "setcard_id"
@@ -62,8 +62,8 @@ class ExportCardsFragment:Fragment() {
             textView.setText(jsonString)
             return true
         }else if (item?.itemId == R.id.filetypecvs){
-            textView.setText(csvString)
-            return true
+           textView.setText(csvString)
+           return true
         }
         return super.onOptionsItemSelected(item)
     }
@@ -105,6 +105,7 @@ class ExportCardsFragment:Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onSuccess = { flashcardsDB ->
+                            Log.d(TAG,"jsoncsvFromQuery")
                             flashcards.clear()
                             flashcards.addAll(flashcardsDB)
                             // If there are cards convert to json and csv
@@ -112,18 +113,13 @@ class ExportCardsFragment:Fragment() {
 
                                 //jsonString = arrayListtoJSON()
                                 csvString = arrayListtoCSV()
-                                jsonStringGson = jsonfromGson()
-
-
-                                // Test using Gson to convert to Json
-                                val testJson = jsonfromGson()
-                                //Log.d(TAG, jsonfromGson())
-                                textView.setText(jsonStringGson)
+                                jsonString = jsonfromGson()
+                                textView.setText(jsonString)
 
                             }
                         },
                         onError = { error  ->
-                            //Log.e(TAG, "Error getting data: " + error)
+                            Log.e(TAG, "Error getting data: " + error)
                         }
                 )
     }
@@ -138,7 +134,6 @@ class ExportCardsFragment:Fragment() {
             try {
                 var gsonBuilder = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
                 json = gsonBuilder.toJson(flashcards,cardType)
-
                 }catch (e: JSONException){
                     Log.d(TAG, "Failed to convert list to json: " + e.toString())
                 }
@@ -166,7 +161,6 @@ class ExportCardsFragment:Fragment() {
             stringBack = stringBack.replace("\n", "\\n")
             stringFront = stringFront.replace(",", "\\,")
             stringBack = stringBack.replace("\n", "\\,")
-
             stringOut = stringOut + "\"" +  stringFront + "\",\"" + stringBack + "\"\n"
     }
         return stringOut
