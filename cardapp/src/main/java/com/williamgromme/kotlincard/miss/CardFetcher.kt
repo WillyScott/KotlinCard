@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 /**
- * Fetch JSON from URL and convert using GSON to ArrayList.
+ * Fetch cards from URL convert to JSON
  *
  * @author S. Gromme
  */
@@ -29,12 +29,11 @@ class CardFetcher() {
     // **************************************************
 
     /**
-     * Returns the result of the Json string loaded into ArrayList
-     * The current value will become that result.
+     * Returns the result of the Json string loaded into ArrayList.
      * @param jsonString string of flashcards to be loaded in ArrayList
      * @return The ArrayList of flashcards.
      */
-    public fun parseItems( jsonString: String): ArrayList<FlashCard>  {
+     public fun parseItems( jsonString: String): ArrayList<FlashCard>  {
 
         var cardItemType: Type = object : TypeToken<kotlin.collections.ArrayList<FlashCard>>() {}.type
         var cards = ArrayList<FlashCard>()
@@ -54,11 +53,10 @@ class CardFetcher() {
     }
 
     /**
-     * Returns the result of the Json string loaded into ArrayList
+     * Returns the result of the Json string loaded into ArrayList.
      * @param  url URL where the flashcards exist in Json format (GitHub)
      * @return The ArrayList of flashcards.
      */
-
     public fun fetchCards(url:String):ArrayList<FlashCard> {
         var cards = ArrayList<FlashCard>()
         var jsonString = getUrlString(url)
@@ -74,7 +72,7 @@ class CardFetcher() {
     // Private methods
     // **************************************************
     /**
-     * Returns the result of the Json string
+     * Returns the result of the Json string from the URL.
      * @param  urlString URL where the flashcards exist in Json format
      * @return JSON string.
      */
