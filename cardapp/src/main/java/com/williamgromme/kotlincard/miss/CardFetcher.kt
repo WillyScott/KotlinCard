@@ -62,6 +62,7 @@ class CardFetcher() {
         var jsonString = getUrlString(url)
         cards = parseItems( jsonString)
         // loop cards set show to true
+        // otherwise its null in dabase
         for( i in 0 .. cards.size -1){
             cards[i].show = true
         }
