@@ -12,56 +12,29 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-
 /**
- * Created by Dad on 11/3/2017.
- * Import JSON from url.
+ * Fetch JSON from URL and convert using GSON to ArrayList.
+ *
+ * @author S. Gromme
  */
+
 class CardFetcher() {
+    // **************************************************
+    // Constants
+    // **************************************************
     private final val TAG = "CardFetcher"
 
-    private fun getUrlString(urlString: String):String {
-        //Creates URL connection to json to import flashcards
+    // **************************************************
+    // Public methods
+    // **************************************************
 
-        var url = URL(urlString)
-        var connection = url.openConnection() as HttpURLConnection
-        try {
-            var out: ByteArrayOutputStream = ByteArrayOutputStream()
-            var code = connection.responseCode
-            //Log.i(TAG, "The code is: " + code)
-            if (code != HttpURLConnection.HTTP_OK) {
-                //Log.d(TAG, "the result code: " + code)
-                throw IOException(connection.responseMessage + ": with " + urlString)
-            }
-
-            var result: String = ""
-            val inputStream: InputStream = connection.inputStream
-            val isReader = InputStreamReader(inputStream)
-            var buffReader = BufferedReader(isReader, 1024)
-            var bytesRead: Int = 0
-            result = buffReader.readText()
-            return result
-
-        }
-        catch (e: Exception ){
-            //Log.d(TAG,"Exception:" +e )
-        }
-        finally {
-            //Log.d(TAG,"finally")
-            connection.disconnect()
-        }
-        return "error"
-    }
-
-    public fun getJson(urlS : String):String {
-        val jsonString = getUrlString(urlS)
-        return jsonString
-    }
-
+    /**
+     * Returns the result of the Json string loaded into ArrayList
+     * The current value will become that result.
+     * @param jsonString string of flashcards to be loaded in ArrayList
+     * @return The ArrayList of flashcards.
+     */
     public fun parseItems( jsonString: String): ArrayList<FlashCard>  {
-         //Get JSON into cards
-        //val turnsType = object : TypeToken<List<Turns>>() {}.type
-        //val turns = Gson().fromJson<List<Turns>>(pref.turns, turnsType)
 
         var cardItemType: Type = object : TypeToken<kotlin.collections.ArrayList<FlashCard>>() {}.type
         var cards = ArrayList<FlashCard>()
@@ -80,6 +53,12 @@ class CardFetcher() {
         return cards
     }
 
+    /**
+     * Returns the result of the Json string loaded into ArrayList
+     * @param  url URL where the flashcards exist in Json format (GitHub)
+     * @return The ArrayList of flashcards.
+     */
+
     public fun fetchCards(url:String):ArrayList<FlashCard> {
         var cards = ArrayList<FlashCard>()
         var jsonString = getUrlString(url)
@@ -89,5 +68,48 @@ class CardFetcher() {
             cards[i].show = true
         }
         return cards
+    }
+
+    // **************************************************
+    // Private methods
+    // **************************************************
+    /**
+     * Returns the result of the Json string
+     * @param  urlString URL where the flashcards exist in Json format
+     * @return JSON string.
+     */
+    private fun getUrlString(urlString: String):String {
+        //Creates URL connection to json to import flashcards
+
+        var url = URL(urlString)
+        var connection = url.openConnection() as HttpURLConnection
+        try {
+            var out: ByteArrayOutputStream = ByteArrayOutputStream()
+            var code = connection.responseCode
+            //TODO: return the error in the JSON string.
+            //Log.i(TAG, "The code is: " + code)
+            if (code != HttpURLConnection.HTTP_OK) {
+                //Log.d(TAG, "the result code: " + code)
+                throw IOException(connection.responseMessage + ": with " + urlString)
+            }
+
+            var result: String = ""
+            val inputStream: InputStream = connection.inputStream
+            val isReader = InputStreamReader(inputStream)
+            var buffReader = BufferedReader(isReader, 1024)
+            var bytesRead: Int = 0
+            result = buffReader.readText()
+            out.close()
+            return result
+        }
+        catch (e: Exception ){
+            //Log.d(TAG,"Exception:" +e )
+        }
+        finally {
+            Log.d(TAG,"finally")
+            connection.disconnect()
+        }
+        //TODO:  return the error in the JSON string.
+        return "error"
     }
 }

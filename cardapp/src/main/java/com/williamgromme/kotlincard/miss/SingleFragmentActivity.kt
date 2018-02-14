@@ -6,6 +6,7 @@ import com.williamgromme.kotlincard.R
 
 /**
  * Created by Dad on 10/22/2017.
+ * BNR
  */
 abstract class  SingleFragmentActivity: AppCompatActivity() {
 
